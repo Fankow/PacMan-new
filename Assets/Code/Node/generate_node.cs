@@ -24,7 +24,7 @@ public class generate_node : MonoBehaviour{
         column=manager.column;
         startPos=transform.position;
         id=0;
-        nodes=new GameObject("nodes").transform;
+        nodes=new GameObject("Nodes").transform;
 
         int i,j;
         for(i=0;i<column;i++){
