@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - map
+  - node_deleter
+  - pelete_deleter
+  - node_tp
+  - node_pellet
+  - node_ghost
+  - node_energizer
+  - node_normal
+  - node_pacman
   layers:
   - Default
   - TransparentFX
