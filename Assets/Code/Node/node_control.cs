@@ -19,6 +19,7 @@ public class node_control : MonoBehaviour{
             yield return null;
         }//wait for finish generation of all nodes
 
+
         if(gameObject.CompareTag("node_ghost")){
             nodeNearby[manager.UP]=Search(Vector2.up,CmpGhost);
             nodeNearby[manager.LEFT]=Search(-Vector2.right,CmpGhost);
