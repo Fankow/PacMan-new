@@ -94,13 +94,20 @@ public class pacman_control : entity{
         if(updated==false){
             return;
         }
-        if(other.gameObject.CompareTag("node_pellet")){
+        else if(other.gameObject.CompareTag("node_pellet")){
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             //dont need its collider anymore
             if(manager.EatPellet()){
                 Restart();
+                //eating all pellet and level up, back to its respawn node
             }
+        }
+        else if(other.gameObject.CompareTag("node_energizer")){
+            other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
+            other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
+            other.gameObject.tag="node_pellet";
+            manager.EatEnergizer();
         }
     }
 

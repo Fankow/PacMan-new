@@ -18,7 +18,8 @@ public class node_control : MonoBehaviour{
         while(GameObject.Find("Node Generator")){
             yield return null;
         }//wait for finish generation of all nodes
-
+        yield return new WaitForSeconds(0.3f);
+        //give node deleter some time, wait for it finishes deleting 
 
         if(gameObject.CompareTag("node_ghost")){
             nodeNearby[manager.UP]=Search(Vector2.up,CmpGhost);

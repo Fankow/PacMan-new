@@ -292,6 +292,10 @@ MonoBehaviour:
   row: 16
   column: 28
   frameRate: 0
+  pelletSprite: {fileID: 21300000, guid: aa24d2bb8f9e6e5468c3322b1d45b9c5, type: 3}
+  energizerSprite: {fileID: 21300000, guid: ae33b2970425d69408970cf6d417bc74, type: 3}
+  energizerNumber: 0
+  energizerLeast: 0
 --- !u!1 &622694969
 GameObject:
   m_ObjectHideFlags: 0
