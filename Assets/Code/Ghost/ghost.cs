@@ -18,9 +18,13 @@ public abstract class ghost : entity{
 
     protected virtual void Update(){
         if(CanChangeNode()){
-            
+            node_control controller=curNode.GetComponent<node_control>();
+            //RandomMove(); a function of random movement for ghosts
         }
     }
+    //public virtual void RandomMove(){
+    //    
+    //}
 
     //some ghost may have different change when levelup, so virtual function
     public virtual void LevelUp(){
