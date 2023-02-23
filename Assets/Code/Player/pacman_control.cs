@@ -3,33 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pacman_control : MonoBehaviour{
-    [HideInInspector]public GameObject curNode;
-    public GameObject respawnNode;
-    [HideInInspector]public int direction,previousDir;
-    public int pelletAte;
-    
-    private game_manager manager;
+public class pacman_control : entity{
+
     private Animator anime;
     private SpriteRenderer render;
-    [SerializeField]private float speedNormal,speedFast;
-    private float speed;
-    private int speedFastTime,countDown=0,refillTime;
+    private int speedFastTime,refillTime;
     private bool canSpeedFast=true,isRefill=false,updated=false;
+    private int previousDirection;
 
-    void Start(){
+    protected override void Start(){
         render=transform.GetChild(0).transform.gameObject.GetComponent<SpriteRenderer>();
         anime=transform.GetChild(0).transform.gameObject.GetComponent<Animator>();
-        manager=GameObject.Find("Main Camera").GetComponent<game_manager>();
-        curNode=respawnNode;
+        base.Start();
+
         direction=-1;
-        previousDir=-1;
-        pelletAte=0;
-        speed=speedNormal;
+        previousDirection=-1;
         refillTime=4*manager.frameRate;
         speedFastTime=8*manager.frameRate;
-
-        transform.position=curNode.transform.position;
     }
 
 
@@ -73,7 +63,7 @@ public class pacman_control : MonoBehaviour{
             SetAnimation(false,false,false,manager.RIGHT);
         }
         else{
-            direction=previousDir;
+            direction=previousDirection;
         }//pacman keep moving in has previous direction
 
         if(Input.GetKeyDown(KeyCode.Space)&&canSpeedFast){
@@ -86,16 +76,15 @@ public class pacman_control : MonoBehaviour{
         else{
             GameObject nextNode;
             node_control controller=curNode.GetComponent<node_control>();
-            transform.position=Vector2.MoveTowards(transform.position,curNode.transform.position,speed*Time.deltaTime);
-            if(Math.Abs(transform.position.x-curNode.transform.position.x)<=float.Epsilon&&Math.Abs(transform.position.y-curNode.transform.position.y)<=float.Epsilon){
+            if(CanChangeNode()){
                 //reach cur_node, find next node
                 if((nextNode=controller.nodeNearby[direction])!=null){
                     curNode=nextNode;
-                    previousDir=direction;
+                    previousDirection=direction;
                 }
-                else if(previousDir>=0&&(nextNode=controller.nodeNearby[previousDir])!=null){
+                else if(previousDirection>=0&&(nextNode=controller.nodeNearby[previousDirection])!=null){
                     curNode=nextNode;
-                    //continue run at pre_dir;
+                    //continue run at previousDirection
                 }
             }
         }
@@ -109,7 +98,15 @@ public class pacman_control : MonoBehaviour{
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             //dont need its collider anymore
-            pelletAte++;
+            if(manager.EatPellet()){
+                Restart();
+            }
         }
+    }
+
+    protected override void Restart(){
+        base.Restart();
+        canSpeedFast=true;isRefill=false;
+        direction=-1;previousDirection=-1;
     }
 }
