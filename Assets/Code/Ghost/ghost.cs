@@ -6,7 +6,7 @@ public abstract class ghost : entity{
     
     [SerializeField]protected int searchRange;//used in pathfinding
     [SerializeField]protected int respawnDirection;
-    protected bool isEdible;
+    protected bool isEdible,pacmanFound;
     protected int respawnTime;
 
     protected override void Start(){

@@ -18,7 +18,7 @@ public class node_control : MonoBehaviour{
         while(GameObject.Find("Node Generator")){
             yield return null;
         }//wait for finish generation of all nodes
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         //give node deleter some time, wait for it finishes deleting 
 
         if(gameObject.CompareTag("node_ghost")){

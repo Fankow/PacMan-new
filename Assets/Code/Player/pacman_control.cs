@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class pacman_control : entity{
+    public Sprite pelletSprite;
 
+    
     private Animator anime;
     private SpriteRenderer render;
+    private Vector2 pelletNodeSize;
     private int speedFastTime,refillTime;
     private bool canSpeedFast=true,isRefill=false,updated=false;
     private int previousDirection;
@@ -16,6 +19,7 @@ public class pacman_control : entity{
         anime=transform.GetChild(0).transform.gameObject.GetComponent<Animator>();
         base.Start();
 
+        pelletNodeSize=new Vector2(0.5f,0.5f);
         direction=-1;
         previousDirection=-1;
         refillTime=4*manager.frameRate;
@@ -104,8 +108,10 @@ public class pacman_control : entity{
             }
         }
         else if(other.gameObject.CompareTag("node_energizer")){
+            other.gameObject.GetComponent<SpriteRenderer>().sprite=pelletSprite;
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
+            other.gameObject.transform.localScale=pelletNodeSize;
             other.gameObject.tag="node_pellet";
             manager.EatEnergizer();
         }
