@@ -23,7 +23,7 @@ public class node_delete : MonoBehaviour{
 
 
     void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.CompareTag("node_pellet")){
+        if(other.gameObject.CompareTag("node_pellet")||other.gameObject.CompareTag("node_normal")){
             Destroy(other.gameObject);
         }
     }

@@ -34,6 +34,9 @@ public class pacman_control : entity{
         direction=nextDir;
     }
     void Update(){
+        if(manager.gameActive==false){
+            return;
+        }
         updated=true;
         if(countDown>0){
             countDown--;
@@ -102,10 +105,7 @@ public class pacman_control : entity{
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             //dont need its collider anymore
-            if(manager.EatPellet()){
-                Restart();
-                //eating all pellet and level up, back to its respawn node
-            }
+            manager.EatPellet();
         }
         else if(other.gameObject.CompareTag("node_energizer")){
             other.gameObject.GetComponent<SpriteRenderer>().sprite=pelletSprite;
@@ -117,6 +117,9 @@ public class pacman_control : entity{
         }
     }
 
+    public void PacmanRestart(){
+        Restart();
+    }
     protected override void Restart(){
         base.Restart();
         canSpeedFast=true;isRefill=false;

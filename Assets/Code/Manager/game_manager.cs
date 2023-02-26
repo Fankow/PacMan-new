@@ -17,12 +17,17 @@ public class game_manager : MonoBehaviour{
     private int lives,scores;
     private int scoresPerPellet=10,scoresPerGhost=100;
     private int level=1,maxLevel=10;
+    private Dictionary<int,int> banned;
+    public bool gameActive;
+
     void Awake(){
+        gameActive=false;
         frameRate=25;
         Application.targetFrameRate=frameRate;
     }
 
     void Start(){
+        banned=new Dictionary<int,int>();
         energizerNodeSize=new Vector2(0.8f,0.8f);
         StartCoroutine(WaitForGenerator());
     }
@@ -35,66 +40,39 @@ public class game_manager : MonoBehaviour{
         SpawnEnergizer(pellets);
         yield break;
     }
+    
     private void SpawnEnergizer(GameObject[] pellets){
-        pelletNumber=pellets.Length;
         //randomly pick energizerNumber GameObjects from pellets and
         //turn their tag to "node_energizer" and sprite to energizerSprite
-
-        int[,] bound=new int[(energizerNumber+2),2];
-        int segment=1;
+        pelletNumber=pellets.Length;
         int i,idx;
-        bound[0,0]=int.MinValue;bound[0,1]=0;
-        bound[1,0]=pelletNumber;bound[1,1]=int.MaxValue;
 
         for(i=0;i<energizerNumber;i++){
-            idx=Random.Range(0,segment);
+            idx=Random.Range(0,pelletNumber);
+            pelletNumber--;
 
-            idx=Random.Range(bound[idx,1],bound[idx+1,0]);
-            Debug.Log("idx="+idx.ToString());
+            if(banned.ContainsKey(idx)){
+                idx=banned[idx];
+                //pellets[idx] already becomes node_energizer
+            }
+
             pellets[idx].tag="node_energizer";
             pellets[idx].GetComponent<SpriteRenderer>().sprite=energizerSprite;
             pellets[idx].transform.localScale=energizerNodeSize;
 
-            int j,low,high;
-            for(j=segment;j>=0;j--){
-                if(idx<bound[j,0]){
-                    bound[j+1,0]=bound[j,0];
-                    bound[j+1,1]=bound[j,1];
-                }
-                else{
-                    j++;
-                    bound[j,0]=idx;
-                    bound[j,1]=idx+1;
-                    break;
-                }
-            }
-            segment++;
-
-            j=segment;
-            low=0;high=1;
-            while(high<=j){
-                if(bound[low,1]>=bound[high,0]){
-                    bound[low,1]=bound[high,1];
-                    segment--;
-                }
-                else{
-                    low++;
-                    bound[low,0]=bound[high,0];
-                    bound[low,1]=bound[high,1];
-                }
-                high++;
-            }
-
-            Debug.Log("segment="+segment);
-            for(j=0;j<=segment;j++){
-                Debug.Log(bound[j,0]+" "+bound[j,1]);
+            if(idx==pelletNumber){}
+            else{
+                banned.Add(idx,pelletNumber);
+                //remap
             }
         }
-        pelletNumber-=energizerNumber;
+        banned.Clear();
+        gameActive=true;
     }
 
 
-    private void LevelUp(){
+    IEnumerator LevelUp(){
+        yield return new WaitForSeconds(0.2f);
         pelletAte=0;
         scoresPerPellet++;
         scoresPerGhost+=40;
@@ -104,28 +82,26 @@ public class game_manager : MonoBehaviour{
         }
 
         GameObject[] pellets=GameObject.FindGameObjectsWithTag("node_pellet");
+        GameObject.Find("Player").GetComponent<pacman_control>().PacmanRestart();
         for(int i=0;i<pellets.Length;i++){
             pellets[i].GetComponent<SpriteRenderer>().enabled=true;
             pellets[i].GetComponent<BoxCollider2D>().enabled=true;
         }
         SpawnEnergizer(pellets);
+        yield break;
     }
 
-    public bool EatPellet(){
+    public void EatPellet(){
         pelletAte++;
         ChangeScores(scoresPerPellet);
         if(pelletAte==pelletNumber){
+            gameActive=false;
             if(level==maxLevel){
-                //game end
-                return false;
+                //pop message
             }
             else{
-                LevelUp();
-                return true;
+                StartCoroutine(LevelUp());
             }
-        }
-        else{
-            return false;
         }
     }
     public void EatGhost(){
