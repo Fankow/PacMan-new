@@ -22,8 +22,8 @@ public class pacman_control : entity{
         pelletNodeSize=new Vector2(0.5f,0.5f);
         direction=-1;
         previousDirection=-1;
-        refillTime=4*manager.frameRate;
-        speedFastTime=8*manager.frameRate;
+        refillTime=2*manager.frameRate;
+        speedFastTime=7*manager.frameRate;
     }
 
 
@@ -108,12 +108,9 @@ public class pacman_control : entity{
             manager.EatPellet();
         }
         else if(other.gameObject.CompareTag("node_energizer")){
-            other.gameObject.GetComponent<SpriteRenderer>().sprite=pelletSprite;
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
-            other.gameObject.transform.localScale=pelletNodeSize;
-            other.gameObject.tag="node_pellet";
-            manager.EatEnergizer();
+            manager.EatEnergizer(other.gameObject);
         }
     }
 

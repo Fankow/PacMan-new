@@ -6,19 +6,26 @@ using TMPro;
 
 public class game_manager : MonoBehaviour{
     public readonly int UP=0,DOWN=3,LEFT=1,RIGHT=2;//sum of opposite direction==3
+
+    public Sprite pelletSprite,energizerSprite;
+
     public int row,column;
     [HideInInspector]public int frameRate;
-    public Sprite energizerSprite;
+    [HideInInspector]public bool gameActive;
 
     
-    private Vector2 energizerNodeSize;
+    private GameObject[] pellets;
+    private Vector2 energizerNodeSize,pelletNodeSize;
+
     private int pelletAte,pelletNumber;
-    [SerializeField]private int energizerNumber,energizerLeast;
+    [SerializeField]private int energizerSpawnNumber,energizerLeast;
     private int lives,scores;
     private int scoresPerPellet=10,scoresPerGhost=100;
     private int level=1,maxLevel=10;
+    
     private Dictionary<int,int> banned;
-    public bool gameActive;
+    private List<int> energizersRemain;
+    
 
     void Awake(){
         gameActive=false;
@@ -27,8 +34,10 @@ public class game_manager : MonoBehaviour{
     }
 
     void Start(){
+        energizersRemain=new List<int>();
         banned=new Dictionary<int,int>();
         energizerNodeSize=new Vector2(0.8f,0.8f);
+        pelletNodeSize=new Vector2(0.5f,0.5f);
         StartCoroutine(WaitForGenerator());
     }
     IEnumerator WaitForGenerator(){
@@ -36,20 +45,22 @@ public class game_manager : MonoBehaviour{
             yield return null;
         }//wait for finish generation of all nodes
         yield return new WaitForSeconds(0.2f);
-        GameObject[] pellets=GameObject.FindGameObjectsWithTag("node_pellet");
-        SpawnEnergizer(pellets);
+
+        pellets=GameObject.FindGameObjectsWithTag("node_pellet");
+        pelletNumber=pellets.Length;
+        SpawnEnergizer(pelletNumber);
+        
         yield break;
     }
     
-    private void SpawnEnergizer(GameObject[] pellets){
-        //randomly pick energizerNumber GameObjects from pellets and
+    private void SpawnEnergizer(int choices){
+        //randomly pick energizerSpawnNumber GameObjects from pellets and
         //turn their tag to "node_energizer" and sprite to energizerSprite
-        pelletNumber=pellets.Length;
         int i,idx;
 
-        for(i=0;i<energizerNumber;i++){
-            idx=Random.Range(0,pelletNumber);
-            pelletNumber--;
+        for(i=0;i<energizerSpawnNumber;i++){
+            idx=Random.Range(0,choices);
+            choices--;
 
             if(banned.ContainsKey(idx)){
                 idx=banned[idx];
@@ -60,13 +71,16 @@ public class game_manager : MonoBehaviour{
             pellets[idx].GetComponent<SpriteRenderer>().sprite=energizerSprite;
             pellets[idx].transform.localScale=energizerNodeSize;
 
-            if(idx==pelletNumber){}
+            if(idx==choices){}
             else{
-                banned.Add(idx,pelletNumber);
+                banned.Add(idx,choices);
                 //remap
             }
         }
+
+        pelletNumber-=energizerSpawnNumber;
         banned.Clear();
+        energizersRemain.Clear();
         gameActive=true;
     }
 
@@ -77,17 +91,36 @@ public class game_manager : MonoBehaviour{
         scoresPerPellet++;
         scoresPerGhost+=40;
 
-        if(energizerNumber>energizerLeast){
-            energizerNumber--;
+        if(energizerSpawnNumber>energizerLeast){
+            energizerSpawnNumber--;
         }
 
-        GameObject[] pellets=GameObject.FindGameObjectsWithTag("node_pellet");
-        GameObject.Find("Player").GetComponent<pacman_control>().PacmanRestart();
-        for(int i=0;i<pellets.Length;i++){
+        int choices=pellets.Length;
+        int i;
+
+        for(i=0;i<pellets.Length;i++){
             pellets[i].GetComponent<SpriteRenderer>().enabled=true;
             pellets[i].GetComponent<BoxCollider2D>().enabled=true;
+            if(pellets[i].CompareTag("node_energizer")){
+                banned.Add(i,-1);
+                energizersRemain.Add(i);
+            }
         }
-        SpawnEnergizer(pellets);
+        pelletNumber=pellets.Length-energizersRemain.Count;
+
+        for(i=0;i<energizersRemain.Count;i++){
+            if(energizersRemain[i]<pelletNumber){
+                do{
+                    choices--;
+                }while(banned.ContainsKey(choices));
+                banned[energizersRemain[i]]=choices;
+                //remap the last energizersRemain.Count indices to previous banned indices
+            }
+        }
+
+        SpawnEnergizer(pelletNumber);
+        //pelletNumber on map=total pellets-energizer left in previous level-number of energizer that will spawn
+        GameObject.Find("Player").GetComponent<pacman_control>().PacmanRestart();
         yield break;
     }
 
@@ -108,7 +141,10 @@ public class game_manager : MonoBehaviour{
         ChangeLives(1);
         ChangeScores(scoresPerGhost);
     }
-    public void EatEnergizer(){
+    public void EatEnergizer(GameObject node){
+        node.transform.localScale=pelletNodeSize;
+        node.GetComponent<SpriteRenderer>().sprite=pelletSprite;
+        node.tag="node_pellet";
     }
 
 
