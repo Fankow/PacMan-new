@@ -56,26 +56,39 @@ public class game_manager : MonoBehaviour{
     private void SpawnEnergizer(int choices){
         //randomly pick energizerSpawnNumber GameObjects from pellets and
         //turn their tag to "node_energizer" and sprite to energizerSprite
-        int i,idx;
+        int i,idx,x;
+        int choice;
 
         for(i=0;i<energizerSpawnNumber;i++){
             idx=Random.Range(0,choices);
             choices--;
 
-            if(banned.ContainsKey(idx)){
-                idx=banned[idx];
+            if(banned.TryGetValue(idx,out x)){
+                if(idx==choices){
+                    banned.Remove(idx);
+                }
+                else{
+                    choice=choices;
+                    while(banned.TryGetValue(choice,out x)){choice=x;}
+                    //see if choices was mapped
+                    banned[idx]=choice;
+                }
+                idx=x;
                 //pellets[idx] already becomes node_energizer
+            }
+            else{
+                if(idx==choices){}
+                else{
+                    choice=choices;
+                    while(banned.TryGetValue(choice,out x)){choice=x;}
+                    //see if choices was mapped
+                    banned.Add(idx,choice);
+                }
             }
 
             pellets[idx].tag="node_energizer";
             pellets[idx].GetComponent<SpriteRenderer>().sprite=energizerSprite;
             pellets[idx].transform.localScale=energizerNodeSize;
-
-            if(idx==choices){}
-            else{
-                banned.Add(idx,choices);
-                //remap
-            }
         }
 
         pelletNumber-=energizerSpawnNumber;
