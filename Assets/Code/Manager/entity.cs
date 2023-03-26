@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class entity : MonoBehaviour{
     protected GameObject curNode;
+    public GameObject CurNode{get{return curNode;}}
     [SerializeField]protected GameObject respawnNode;
     protected game_manager manager;
     protected float speed;

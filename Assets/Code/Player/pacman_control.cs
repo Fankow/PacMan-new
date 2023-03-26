@@ -85,11 +85,11 @@ public class pacman_control : entity{
             node_control controller=curNode.GetComponent<node_control>();
             if(CanChangeNode()){
                 //reach cur_node, find next node
-                if((nextNode=controller.nodeNearby[direction])!=null){
+                if((nextNode=controller.NodeNearby[direction])!=null){
                     curNode=nextNode;
                     previousDirection=direction;
                 }
-                else if(previousDirection>=0&&(nextNode=controller.nodeNearby[previousDirection])!=null){
+                else if(previousDirection>=0&&(nextNode=controller.NodeNearby[previousDirection])!=null){
                     curNode=nextNode;
                     //continue run at previousDirection
                 }

@@ -199,8 +199,14 @@ MonoBehaviour:
   respawnNode: {fileID: 1653190743}
   speedNormal: 5
   speedFast: 5
-  searchRange: 10
+  searchRange: 1000
   respawnDirection: 3
+  eyes:
+  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
+  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
+  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
+  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
+  eyesRenderer: {fileID: 1836838604}
 --- !u!1 &319401533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6170,7 +6176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03dc92cd2f91c94ca7d18045a2d438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeNearby: []
 --- !u!1 &1335283992
 GameObject:
   m_ObjectHideFlags: 0
@@ -6242,7 +6247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03dc92cd2f91c94ca7d18045a2d438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeNearby: []
 --- !u!1 &1339675361
 GameObject:
   m_ObjectHideFlags: 0
@@ -6407,7 +6411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03dc92cd2f91c94ca7d18045a2d438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeNearby: []
 --- !u!1 &1482459703
 GameObject:
   m_ObjectHideFlags: 0
@@ -6454,7 +6457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03dc92cd2f91c94ca7d18045a2d438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeNearby: []
 --- !u!61 &1482459706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6629,7 +6631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03dc92cd2f91c94ca7d18045a2d438c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeNearby: []
 --- !u!1 &1669796500
 GameObject:
   m_ObjectHideFlags: 0

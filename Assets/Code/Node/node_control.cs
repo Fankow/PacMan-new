@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class node_control : MonoBehaviour{
-    public GameObject[] nodeNearby;
+    private GameObject[] nodeNearby;
+    public GameObject[] NodeNearby{get {return nodeNearby;}}
 
     private game_manager manager;
 
