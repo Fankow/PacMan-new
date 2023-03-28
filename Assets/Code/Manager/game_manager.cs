@@ -19,7 +19,7 @@ public class game_manager : MonoBehaviour{
 
     private int pelletAte,pelletNumber;
     [SerializeField]private int energizerSpawnNumber,energizerLeast;
-    private int lives,scores;
+    private int lives=3,scores;
     private int scoresPerPellet=10,scoresPerGhost=100;
     private int level=1,maxLevel=10;
     
@@ -58,20 +58,24 @@ public class game_manager : MonoBehaviour{
         //turn their tag to "node_energizer" and sprite to energizerSprite
         int i,idx,x;
         int choice;
-
+        //Debug.Log($"choices={choices}");
         for(i=0;i<energizerSpawnNumber;i++){
             idx=Random.Range(0,choices);
+            //Debug.Log($"get {idx}");
             choices--;
 
             if(banned.TryGetValue(idx,out x)){
                 if(idx==choices){
                     banned.Remove(idx);
+                    //Debug.Log($"mapped, get {x}");
                 }
                 else{
+                    int y;
                     choice=choices;
-                    while(banned.TryGetValue(choice,out x)){choice=x;}
+                    while(banned.TryGetValue(choice,out y)){choice=y;}
                     //see if choices was mapped
                     banned[idx]=choice;
+                    //Debug.Log($"mapped, get {x} mapped {choice}");
                 }
                 idx=x;
                 //pellets[idx] already becomes node_energizer
@@ -83,6 +87,7 @@ public class game_manager : MonoBehaviour{
                     while(banned.TryGetValue(choice,out x)){choice=x;}
                     //see if choices was mapped
                     banned.Add(idx,choice);
+                    //Debug.Log($"map {idx} with {choice}");
                 }
             }
 
@@ -148,6 +153,16 @@ public class game_manager : MonoBehaviour{
             else{
                 StartCoroutine(LevelUp());
             }
+        }
+    }
+    public bool EatPacman(){
+        ChangeLives(-1);
+        ChangeScores(-150);
+        if(lives<=0){
+            return false;
+        }
+        else{
+            return true;
         }
     }
     public void EatGhost(){

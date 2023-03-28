@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class pacman_control : entity{
     public Sprite pelletSprite;
-
+    public AnimationClip deadAnimation;
     
     private Animator anime;
     private SpriteRenderer render;
     private Vector2 pelletNodeSize;
+    private WaitForSeconds deadAnimationTime;
     private int speedFastTime,refillTime;
     private bool canSpeedFast=true,isRefill=false,updated=false;
     private int previousDirection;
@@ -20,6 +21,7 @@ public class pacman_control : entity{
         base.Start();
 
         pelletNodeSize=new Vector2(0.5f,0.5f);
+        deadAnimationTime=new WaitForSeconds(deadAnimation.length/0.65f);
         direction=-1;
         previousDirection=-1;
         refillTime=2*manager.frameRate;
@@ -111,6 +113,27 @@ public class pacman_control : entity{
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             manager.EatEnergizer(other.gameObject);
+        }
+        else if(other.gameObject.CompareTag("ghost")){
+            if(other.gameObject.GetComponent<ghost>().BeingEaten()){
+                manager.EatGhost();
+            }
+            else{
+                StartCoroutine(PlayDeadAnimation());
+            }
+        }
+    }
+
+    private IEnumerator PlayDeadAnimation(){
+        manager.gameActive=false;
+        anime.SetTrigger("dead");
+        yield return deadAnimationTime;
+        if(manager.EatPacman()){
+            Restart();
+            manager.gameActive=true;
+        }
+        else{
+            gameObject.SetActive(false);
         }
     }
 

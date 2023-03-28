@@ -13,7 +13,7 @@ TagManager:
   - node_energizer
   - node_normal
   - node_pacman
-  - red_ghost
+  - ghost
   layers:
   - Default
   - TransparentFX

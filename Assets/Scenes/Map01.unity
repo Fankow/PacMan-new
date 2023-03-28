@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 23678993}
   m_Layer: 0
   m_Name: Red
-  m_TagString: red_ghost
+  m_TagString: ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6676,7 +6676,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -6729,6 +6729,7 @@ MonoBehaviour:
   speedNormal: 7
   speedFast: 13
   pelletSprite: {fileID: 21300000, guid: aa24d2bb8f9e6e5468c3322b1d45b9c5, type: 3}
+  deadAnimation: {fileID: 7400000, guid: a4c7a0334d4261f4c997be62deed37bf, type: 2}
 --- !u!1 &1742962866
 GameObject:
   m_ObjectHideFlags: 0
@@ -10797,7 +10798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948531511}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -2.28, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10861,5 +10862,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 30, y: 20}
   m_EdgeRadius: 0
