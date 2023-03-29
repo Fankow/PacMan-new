@@ -28,4 +28,6 @@ public abstract class entity : MonoBehaviour{
         transform.position=curNode.transform.position;
         speed=speedNormal;
     }
+
+    public abstract void LevelUp();
 }

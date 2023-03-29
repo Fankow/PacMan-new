@@ -92,25 +92,35 @@ internal class PriorityQueue{
                     le=(i*2)+1;
                 }
             }
-
             return retNode;
         }
     }
 
 }
 
-public abstract class ghost : entity{
+public interface Ighost{
+    void LevelUp();
+    bool BeingEaten();
+    void SetEdible();
+    void UnsetEdible();
+}
+
+public abstract class ghost:entity,Ighost{
     protected const int NOT_FOUND=-1,SAME_NODE=-2;
 
     public delegate bool Comparator(GameObject node);
     
     [SerializeField]protected int searchRange;//used in pathfinding
     [SerializeField]protected int respawnDirection;
-    protected bool isEdible,pacmanFound;
+    protected bool isEdible=false,pacmanFound;
     protected int respawnTime;
 
+    [Header("sprites")]
     [SerializeField]protected Sprite[] eyes;
+    [SerializeField]protected Sprite bodyAfraid,bodyNormal;
+    [Header("SpriteRenderer")]
     [SerializeField]protected SpriteRenderer eyesRenderer;
+    [SerializeField]protected SpriteRenderer bodyRenderer;
     protected GameObject target;
     protected pacman_control pacman;
 
@@ -126,13 +136,26 @@ public abstract class ghost : entity{
         pacman=GameObject.Find("Player").GetComponent<pacman_control>();
         direction=respawnDirection;
         speed=speedNormal;
-        isEdible=false;
+        respawnTime=10*manager.frameRate;
     }
 
     protected virtual void Update(){
-        if(CanChangeNode()){
-            node_control controller=curNode.GetComponent<node_control>();
-            RandomMove();
+        if(manager.gameActive==false){
+            return;
+        }
+        else if(countDown>0){
+            countDown--;
+            bodyRenderer.color=new Color(1,1,1,((float)(respawnTime-countDown))/respawnTime);
+            if(countDown==0){GetComponent<BoxCollider2D>().enabled=true;}
+        }
+        else if(CanChangeNode()){
+            target=pacman.CurNode;
+            int nextDirection=AStar();
+            if(nextDirection>=0){
+                direction=nextDirection;
+                curNode=curNode.GetComponent<node_control>().NodeNearby[direction];
+                eyesRenderer.sprite=eyes[direction];
+            }
         }
     }
 
@@ -156,11 +179,15 @@ public abstract class ghost : entity{
     }
 
     //some ghost may have different change when levelup, so virtual function
-    public virtual void LevelUp(){
+    public override void LevelUp(){
         speed+=0.2f;
         speedNormal+=0.2f;
         speedFast+=0.2f;
         searchRange++;
+        countDown=0;
+        GetComponent<BoxCollider2D>().enabled=true;
+        respawnTime-=manager.frameRate/2;
+        bodyRenderer.color=Color.white;
         Restart();
     }
 
@@ -168,6 +195,9 @@ public abstract class ghost : entity{
     public bool BeingEaten(){
         if(isEdible){
             Restart();
+            bodyRenderer.color=new Color(1,1,1,0);
+            countDown=respawnTime;
+            GetComponent<BoxCollider2D>().enabled=false;
             return true;
         }
         else{
@@ -175,8 +205,24 @@ public abstract class ghost : entity{
         }
     }
 
+
+    public void SetEdible(){
+        if(countDown>0){return;}
+        eyesRenderer.enabled=false;
+        bodyRenderer.sprite=bodyAfraid;
+        isEdible=true;
+    }
+
+
+    public void UnsetEdible(){
+        eyesRenderer.enabled=true;
+        bodyRenderer.sprite=bodyNormal;
+        isEdible=false;
+    }
+
     protected override void Restart(){
         base.Restart();
+        UnsetEdible();
         direction=respawnDirection;
     }
 

@@ -2,10 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class pacman_control : entity{
+public interface Ipacman_control{
+    void LevelUp();//called by game_manager when level up
+}
+
+public class pacman_control:entity,Ipacman_control{
     public Sprite pelletSprite;
     public AnimationClip deadAnimation;
+    public Image speedTimeBar;
     
     private Animator anime;
     private SpriteRenderer render;
@@ -26,6 +32,7 @@ public class pacman_control : entity{
         previousDirection=-1;
         refillTime=2*manager.frameRate;
         speedFastTime=7*manager.frameRate;
+        speedTimeBar.fillAmount=1;
     }
 
 
@@ -43,18 +50,18 @@ public class pacman_control : entity{
         if(countDown>0){
             countDown--;
             if(isRefill){
+                speedTimeBar.fillAmount+=1f/refillTime;
                 if(countDown==0){
                     canSpeedFast=true;
                     isRefill=false;
-                    Debug.Log("can speed up again");
                 }
             }
             else{
+                speedTimeBar.fillAmount-=1f/speedFastTime;
                 if(countDown==0){
                     isRefill=true;
                     countDown=refillTime;
                     speed=speedNormal;
-                    Debug.Log("effect end");
                 }
             }
         }
@@ -99,6 +106,7 @@ public class pacman_control : entity{
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D other){
         if(updated==false){
             return;
@@ -137,12 +145,13 @@ public class pacman_control : entity{
         }
     }
 
-    public void PacmanRestart(){
+    public override void LevelUp(){
         Restart();
     }
     protected override void Restart(){
         base.Restart();
         canSpeedFast=true;isRefill=false;
         direction=-1;previousDirection=-1;
+        speedTimeBar.fillAmount=1;
     }
 }

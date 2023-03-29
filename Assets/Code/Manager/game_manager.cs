@@ -2,24 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
-public class game_manager : MonoBehaviour{
+public interface Igame_manager{
+    void EatPellet();
+    bool EatPacman();//when pacman is eaten by ghost, pacman call this function
+    void EatGhost();
+    void EatEnergizer(GameObject node);
+}
+
+public class game_manager:MonoBehaviour,Igame_manager{
     public readonly int UP=0,DOWN=3,LEFT=1,RIGHT=2;//sum of opposite direction==3
 
-    public Sprite pelletSprite,energizerSprite;
+    [Header("sprites and images")]
+    public Sprite pelletSprite;
+    public Sprite energizerSprite;
+    public Image energizerEffectBar;
+    [Header("text")]
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI liveText;
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI highestScoresText;
+    public TextMeshProUGUI gameEndText;
+    [Header("play related")]
+    public press_shift pressShift;
+    public GameObject menu;
+    public pacman_control pacman;
 
     public int row,column;
     [HideInInspector]public int frameRate;
     [HideInInspector]public bool gameActive;
 
     
+    private ghost[] ghosts;
     private GameObject[] pellets;
     private Vector2 energizerNodeSize,pelletNodeSize;
 
     private int pelletAte,pelletNumber;
     [SerializeField]private int energizerSpawnNumber,energizerLeast;
-    private int lives=3,scores;
+    private int energizerEffectTime,countDown;
+    private int lives=3,scores=0;
     private int scoresPerPellet=10,scoresPerGhost=100;
     private int level=1,maxLevel=10;
     
@@ -31,6 +54,13 @@ public class game_manager : MonoBehaviour{
         gameActive=false;
         frameRate=25;
         Application.targetFrameRate=frameRate;
+
+        GameObject[] ghostsInScene=GameObject.FindGameObjectsWithTag("ghost");
+        ghosts=new ghost[ghostsInScene.Length];
+        int i;
+        for(i=0;i<ghostsInScene.Length;i++){
+            ghosts[i]=ghostsInScene[i].GetComponent<ghost>();
+        }
     }
 
     void Start(){
@@ -38,6 +68,14 @@ public class game_manager : MonoBehaviour{
         banned=new Dictionary<int,int>();
         energizerNodeSize=new Vector2(0.8f,0.8f);
         pelletNodeSize=new Vector2(0.5f,0.5f);
+
+        levelText.text=string.Format("Levels:{0}\nScores:",level);
+        scoreText.text=scores.ToString();
+        liveText.text=string.Format("x {0}",lives);
+
+        energizerEffectBar.fillAmount=0;
+        energizerEffectTime=7*frameRate;
+
         StartCoroutine(WaitForGenerator());
     }
     IEnumerator WaitForGenerator(){
@@ -99,7 +137,21 @@ public class game_manager : MonoBehaviour{
         pelletNumber-=energizerSpawnNumber;
         banned.Clear();
         energizersRemain.Clear();
-        gameActive=true;
+    }
+
+    private void Update(){
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            PauseGameButton();
+        }
+        if(countDown>0){
+            countDown--;
+            energizerEffectBar.fillAmount-=1f/energizerEffectTime;
+            if(countDown==0){
+                for(int i=0;i<ghosts.Length;i++){
+                    ghosts[i].UnsetEdible();
+                }
+            }
+        }
     }
 
 
@@ -108,6 +160,8 @@ public class game_manager : MonoBehaviour{
         pelletAte=0;
         scoresPerPellet++;
         scoresPerGhost+=40;
+        level++;
+        levelText.text=string.Format("Levels:{0}\nScores:",level);
 
         if(energizerSpawnNumber>energizerLeast){
             energizerSpawnNumber--;
@@ -138,7 +192,12 @@ public class game_manager : MonoBehaviour{
 
         SpawnEnergizer(pelletNumber);
         //pelletNumber on map=total pellets-energizer left in previous level-number of energizer that will spawn
-        GameObject.Find("Player").GetComponent<pacman_control>().PacmanRestart();
+        pressShift.enabled=true;
+        pacman.LevelUp();
+        for(i=0;i<ghosts.Length;i++){
+            ghosts[i].LevelUp();
+        }
+        energizerEffectBar.fillAmount=0;
         yield break;
     }
 
@@ -148,7 +207,8 @@ public class game_manager : MonoBehaviour{
         if(pelletAte==pelletNumber){
             gameActive=false;
             if(level==maxLevel){
-                //pop message
+                gameEndText.enabled=true;
+                gameEndText.text=string.Format("Win\nyou reach level{0}",level);
             }
             else{
                 StartCoroutine(LevelUp());
@@ -159,6 +219,8 @@ public class game_manager : MonoBehaviour{
         ChangeLives(-1);
         ChangeScores(-150);
         if(lives<=0){
+            gameEndText.enabled=true;
+            gameEndText.text=string.Format("Game Over\nyou reach level{0}",level-1);
             return false;
         }
         else{
@@ -173,15 +235,33 @@ public class game_manager : MonoBehaviour{
         node.transform.localScale=pelletNodeSize;
         node.GetComponent<SpriteRenderer>().sprite=pelletSprite;
         node.tag="node_pellet";
+        energizerEffectBar.fillAmount=1;
+        countDown=energizerEffectTime;
+        for(int i=0;i<ghosts.Length;i++){
+            ghosts[i].SetEdible();
+        }
     }
 
 
     private void ChangeLives(int val){
         lives+=val;
+        liveText.text=string.Format("x {0}",lives);
     }
 
     private void ChangeScores(int val){
         scores+=val;
+        scoreText.text=scores.ToString();
+    }
+
+
+    public void PauseGameButton(){
+        menu.SetActive(gameActive);
+        gameActive=!gameActive;
+    }
+
+
+    public void RestartGameButton(){
+        SceneManager.LoadScene(0);
     }
 
 }
