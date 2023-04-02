@@ -1759,7 +1759,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736269437}
   - component: {fileID: 736269439}
-  - component: {fileID: 736269438}
+  - component: {fileID: 736269440}
   m_Layer: 0
   m_Name: Pink
   m_TagString: ghost
@@ -1784,32 +1784,6 @@ Transform:
   m_Father: {fileID: 1617500961}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &736269438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736269436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8729d05ed0c50a8458f1e816c44762b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnNode: {fileID: 1051642497}
-  speedNormal: 5
-  speedFast: 5
-  searchRange: 1000
-  respawnDirection: 3
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
-  bodyNormal: {fileID: 21300000, guid: 445f71dff5107634fb6374f3da71572a, type: 3}
-  eyesRenderer: {fileID: 2142112412}
-  bodyRenderer: {fileID: 1474946958}
 --- !u!61 &736269439
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1836,6 +1810,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &736269440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736269436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0b952cc37dae34d8b1034777057583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnNode: {fileID: 1051642497}
+  speedNormal: 0
+  speedFast: 0
+  searchRange: 0
+  respawnDirection: 0
+  eyes:
+  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
+  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
+  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
+  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
+  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
+  bodyNormal: {fileID: 21300000, guid: 445f71dff5107634fb6374f3da71572a, type: 3}
+  eyesRenderer: {fileID: 2142112412}
+  bodyRenderer: {fileID: 1474946958}
 --- !u!1 &744896350
 GameObject:
   m_ObjectHideFlags: 0
@@ -8566,7 +8566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580854612}
   - component: {fileID: 1580854614}
-  - component: {fileID: 1580854613}
+  - component: {fileID: 1580854615}
   m_Layer: 0
   m_Name: Cyan
   m_TagString: ghost
@@ -8591,32 +8591,6 @@ Transform:
   m_Father: {fileID: 1617500961}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1580854613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580854611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8729d05ed0c50a8458f1e816c44762b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnNode: {fileID: 1361647064}
-  speedNormal: 5
-  speedFast: 5
-  searchRange: 1000
-  respawnDirection: 3
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
-  bodyNormal: {fileID: 21300000, guid: ebeaa648964732145bc21b08a2882290, type: 3}
-  eyesRenderer: {fileID: 1993628060}
-  bodyRenderer: {fileID: 1827176693}
 --- !u!61 &1580854614
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8643,6 +8617,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1580854615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580854611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804db4bd5338408498e1cd8d3189c94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnNode: {fileID: 1361647064}
+  speedNormal: 0
+  speedFast: 0
+  searchRange: 0
+  respawnDirection: 0
+  eyes:
+  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
+  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
+  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
+  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
+  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
+  bodyNormal: {fileID: 21300000, guid: ebeaa648964732145bc21b08a2882290, type: 3}
+  eyesRenderer: {fileID: 1993628060}
+  bodyRenderer: {fileID: 1827176693}
 --- !u!1 &1617500960
 GameObject:
   m_ObjectHideFlags: 0
@@ -13255,7 +13255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939818705}
   - component: {fileID: 1939818707}
-  - component: {fileID: 1939818706}
+  - component: {fileID: 1939818708}
   m_Layer: 0
   m_Name: Orange
   m_TagString: ghost
@@ -13280,32 +13280,6 @@ Transform:
   m_Father: {fileID: 1617500961}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1939818706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939818704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8729d05ed0c50a8458f1e816c44762b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnNode: {fileID: 1335283992}
-  speedNormal: 5
-  speedFast: 5
-  searchRange: 1000
-  respawnDirection: 3
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
-  bodyNormal: {fileID: 21300000, guid: 489f90819ddb5e340a6219ab19ded91e, type: 3}
-  eyesRenderer: {fileID: 1555992446}
-  bodyRenderer: {fileID: 683037208}
 --- !u!61 &1939818707
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13332,6 +13306,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1939818708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939818704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26a5bd178c233c4aa0728eba6f58ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnNode: {fileID: 1335283992}
+  speedNormal: 0
+  speedFast: 0
+  searchRange: 0
+  respawnDirection: 0
+  eyes:
+  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
+  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
+  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
+  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
+  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
+  bodyNormal: {fileID: 21300000, guid: 489f90819ddb5e340a6219ab19ded91e, type: 3}
+  eyesRenderer: {fileID: 1555992446}
+  bodyRenderer: {fileID: 683037208}
 --- !u!1 &1948531511
 GameObject:
   m_ObjectHideFlags: 0
