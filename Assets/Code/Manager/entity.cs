@@ -11,6 +11,7 @@ public abstract class entity : MonoBehaviour{
     protected float speed;
     [SerializeField]protected float speedNormal,speedFast;
     protected int direction;
+    public int Direction{get{return direction;}}
     protected int countDown;
 
     protected virtual void Start(){

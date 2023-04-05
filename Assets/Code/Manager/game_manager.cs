@@ -29,7 +29,9 @@ public class game_manager:MonoBehaviour,Igame_manager{
     public press_shift pressShift;
     public GameObject menu;
     public pacman_control pacman;
-
+    [Header("buttons")]
+    public GameObject pauseButton;
+    [Header("Misc")]
     public int row,column;
     [HideInInspector]public int frameRate;
     [HideInInspector]public bool gameActive;
@@ -140,7 +142,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
     }
 
     private void Update(){
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(Input.GetKeyDown(KeyCode.Escape)&&lives>0&&level<maxLevel){
             PauseGameButton();
         }
         if(countDown>0){
@@ -207,8 +209,11 @@ public class game_manager:MonoBehaviour,Igame_manager{
         if(pelletAte==pelletNumber){
             gameActive=false;
             if(level==maxLevel){
-                gameEndText.enabled=true;
-                gameEndText.text=string.Format("Win\nyou reach level{0}",level);
+                gameEndText.gameObject.SetActive(true);
+                gameEndText.color=Color.green;
+                gameEndText.text=string.Format("Win\nyou reach level:{0}",level);
+                menu.SetActive(true);
+                pauseButton.SetActive(false);
             }
             else{
                 StartCoroutine(LevelUp());
@@ -219,8 +224,11 @@ public class game_manager:MonoBehaviour,Igame_manager{
         ChangeLives(-1);
         ChangeScores(-150);
         if(lives<=0){
-            gameEndText.enabled=true;
-            gameEndText.text=string.Format("Game Over\nyou reach level{0}",level-1);
+            gameEndText.gameObject.SetActive(true);
+            gameEndText.color=Color.red;
+            gameEndText.text=string.Format("Game Over\nyou reach level:{0}",level-1);
+            menu.SetActive(true);
+            pauseButton.SetActive(false);
             return false;
         }
         else{

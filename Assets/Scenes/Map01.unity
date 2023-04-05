@@ -199,14 +199,8 @@ MonoBehaviour:
   respawnNode: {fileID: 1653190743}
   speedNormal: 5
   speedFast: 5
-  searchRange: 1000
+  searchRange: 10
   respawnDirection: 3
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
   bodyNormal: {fileID: 21300000, guid: f9cadd4219e104947aeb55f3d5b4236a, type: 3}
   eyesRenderer: {fileID: 1836838604}
   bodyRenderer: {fileID: 637687823}
@@ -1233,6 +1227,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1321,6 +1316,7 @@ MonoBehaviour:
   pressShift: {fileID: 519420034}
   menu: {fileID: 203577136}
   pacman: {fileID: 1669796504}
+  pauseButton: {fileID: 1107048552}
   row: 16
   column: 28
   frameRate: 30
@@ -1341,6 +1337,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pressToStartText: {fileID: 49920081}
   manager: {fileID: 519420033}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f841cd622c4194da615855235328b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
+  eyes:
+  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
+  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
+  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
+  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
 --- !u!1 &622694969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,7 +1780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &736269437
 Transform:
   m_ObjectHideFlags: 0
@@ -1827,12 +1841,6 @@ MonoBehaviour:
   speedFast: 0
   searchRange: 0
   respawnDirection: 0
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
   bodyNormal: {fileID: 21300000, guid: 445f71dff5107634fb6374f3da71572a, type: 3}
   eyesRenderer: {fileID: 2142112412}
   bodyRenderer: {fileID: 1474946958}
@@ -8630,16 +8638,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnNode: {fileID: 1361647064}
-  speedNormal: 0
-  speedFast: 0
-  searchRange: 0
-  respawnDirection: 0
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
+  speedNormal: 6
+  speedFast: 6
+  searchRange: 15
+  respawnDirection: 3
   bodyNormal: {fileID: 21300000, guid: ebeaa648964732145bc21b08a2882290, type: 3}
   eyesRenderer: {fileID: 1993628060}
   bodyRenderer: {fileID: 1827176693}
@@ -13262,7 +13264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1939818705
 Transform:
   m_ObjectHideFlags: 0
@@ -13323,12 +13325,6 @@ MonoBehaviour:
   speedFast: 0
   searchRange: 0
   respawnDirection: 0
-  eyes:
-  - {fileID: 21300000, guid: ec00a5748e4721841802171e3ba41db1, type: 3}
-  - {fileID: 21300000, guid: ef8721b7ad26a554185d0aabb45e8d9c, type: 3}
-  - {fileID: 21300000, guid: 6eeb348a38fd89e4b84f8e7930affd1e, type: 3}
-  - {fileID: 21300000, guid: 04cb9be7036f2544da75f0611a900006, type: 3}
-  bodyAfraid: {fileID: 21300000, guid: f28803b89de7cc3478e3eea0ced8081c, type: 3}
   bodyNormal: {fileID: 21300000, guid: 489f90819ddb5e340a6219ab19ded91e, type: 3}
   eyesRenderer: {fileID: 1555992446}
   bodyRenderer: {fileID: 683037208}

@@ -16,5 +16,9 @@ public class red : ghost{
         base.LevelUp();
     }
 
-
+    protected override void Update(){
+        if(CanUpdate()){
+            base.Update();
+        }
+    }
 }

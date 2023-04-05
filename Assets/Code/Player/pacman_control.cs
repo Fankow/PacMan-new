@@ -21,6 +21,10 @@ public class pacman_control:entity,Ipacman_control{
     private bool canSpeedFast=true,isRefill=false,updated=false;
     private int previousDirection;
 
+    private void Awake(){
+        ghost.pacman=this;
+    }
+
     protected override void Start(){
         render=transform.GetChild(0).transform.gameObject.GetComponent<SpriteRenderer>();
         anime=transform.GetChild(0).transform.gameObject.GetComponent<Animator>();
@@ -102,6 +106,7 @@ public class pacman_control:entity,Ipacman_control{
                     curNode=nextNode;
                     //continue run at previousDirection
                 }
+                ghost.target=curNode;
             }
         }
     }
@@ -153,5 +158,6 @@ public class pacman_control:entity,Ipacman_control{
         canSpeedFast=true;isRefill=false;
         direction=-1;previousDirection=-1;
         speedTimeBar.fillAmount=1;
+        ghost.target=curNode;
     }
 }

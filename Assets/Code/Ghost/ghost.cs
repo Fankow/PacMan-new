@@ -107,6 +107,10 @@ public interface Ighost{
 
 public abstract class ghost:entity,Ighost{
     protected const int NOT_FOUND=-1,SAME_NODE=-2;
+    public static GameObject target;
+    public static pacman_control pacman;
+    public static Sprite bodyAfraid;
+    public static Sprite[] eyes;
 
     public delegate bool Comparator(GameObject node);
     
@@ -116,13 +120,12 @@ public abstract class ghost:entity,Ighost{
     protected int respawnTime;
 
     [Header("sprites")]
-    [SerializeField]protected Sprite[] eyes;
-    [SerializeField]protected Sprite bodyAfraid,bodyNormal;
+    //[SerializeField]protected Sprite[] eyes;
+    //[SerializeField]protected Sprite bodyAfraid;
+    [SerializeField]protected Sprite bodyNormal;
     [Header("SpriteRenderer")]
     [SerializeField]protected SpriteRenderer eyesRenderer;
     [SerializeField]protected SpriteRenderer bodyRenderer;
-    protected GameObject target;
-    protected pacman_control pacman;
 
 
     private Dictionary<GameObject,int> visited=new Dictionary<GameObject,int>();
@@ -133,29 +136,46 @@ public abstract class ghost:entity,Ighost{
 
     protected override void Start(){
         base.Start();
-        pacman=GameObject.Find("Player").GetComponent<pacman_control>();
         direction=respawnDirection;
         speed=speedNormal;
         respawnTime=10*manager.frameRate;
     }
 
-    protected virtual void Update(){
+    protected bool CanUpdate(){
         if(manager.gameActive==false){
-            return;
+            return false;
         }
         else if(countDown>0){
             countDown--;
             bodyRenderer.color=new Color(1,1,1,((float)(respawnTime-countDown))/respawnTime);
             if(countDown==0){GetComponent<BoxCollider2D>().enabled=true;}
+            return false;
         }
-        else if(CanChangeNode()){
-            target=pacman.CurNode;
-            int nextDirection=AStar();
-            if(nextDirection>=0){
-                direction=nextDirection;
-                curNode=curNode.GetComponent<node_control>().NodeNearby[direction];
-                eyesRenderer.sprite=eyes[direction];
-            }
+        return CanChangeNode();
+    }
+
+    protected virtual void Update(){
+        int nextDirection=AStar();
+        if(nextDirection<0){
+            direction=RandomMove();
+        }
+        else if(isEdible){
+            direction=Escape(3-nextDirection);
+        }
+        else{
+            direction=nextDirection;
+        }
+        eyesRenderer.sprite=eyes[direction];
+        curNode=curNode.GetComponent<node_control>().NodeNearby[direction];
+    }
+
+
+    protected virtual int Escape(int escapeDirection){
+        if(curNode.GetComponent<node_control>().NodeNearby[escapeDirection]==null){
+            return RandomMove();
+        }
+        else{
+            return escapeDirection;
         }
     }
 
@@ -348,3 +368,6 @@ public abstract class ghost:entity,Ighost{
         return node==target;
     }
 }
+
+
+    
