@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &23678991
 Transform:
   m_ObjectHideFlags: 0
@@ -1837,10 +1837,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnNode: {fileID: 1051642497}
-  speedNormal: 0
-  speedFast: 0
-  searchRange: 0
-  respawnDirection: 0
+  speedNormal: 5
+  speedFast: 8
+  searchRange: 11
+  respawnDirection: 2
   bodyNormal: {fileID: 21300000, guid: 445f71dff5107634fb6374f3da71572a, type: 3}
   eyesRenderer: {fileID: 2142112412}
   bodyRenderer: {fileID: 1474946958}
@@ -8581,7 +8581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1580854612
 Transform:
   m_ObjectHideFlags: 0
@@ -13264,7 +13264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1939818705
 Transform:
   m_ObjectHideFlags: 0
@@ -13321,10 +13321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnNode: {fileID: 1335283992}
-  speedNormal: 0
-  speedFast: 0
-  searchRange: 0
-  respawnDirection: 0
+  speedNormal: 5
+  speedFast: 8
+  searchRange: 13
+  respawnDirection: 1
   bodyNormal: {fileID: 21300000, guid: 489f90819ddb5e340a6219ab19ded91e, type: 3}
   eyesRenderer: {fileID: 1555992446}
   bodyRenderer: {fileID: 683037208}
