@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class pink : ghost{
-    private float speedUp;
 
     protected override void Start(){
-        speedUp=speedNormal*1.9f;
         base.Start();
+        speedFast=speedNormal*1.9f;
     }
 
     public override void LevelUp(){
         base.LevelUp();
-        speedUp=speedNormal*1.9f;
+        speedFast=speedNormal*1.9f;
     }
 
     protected override void Update(){
@@ -48,7 +45,7 @@ public class pink : ghost{
 
         do{
             if(cur.name==target.name){
-                speed=speedUp;
+                speed=speedFast;
                 curNode=cur;
                 direction=nextDir;
                 eyesRenderer.sprite=eyes[direction];

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class cyan:ghost{
@@ -46,12 +44,12 @@ public class cyan:ghost{
     private void GetPacmanForwardNode(){
         node_control controller=target.GetComponent<node_control>();
         int forwardDirection=pacman.Direction;
-        if(forwardDirection<0){
-            goto Return_;
-        }
         forward1=null;
         forward2=null;
         forward3=null;
+        if(forwardDirection<0){
+            goto Return_;
+        }
         if((forward1=controller.NodeNearby[forwardDirection])!=null&&curNode!=forward1){
             controller=forward1.GetComponent<node_control>();
         }

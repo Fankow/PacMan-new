@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class red : ghost{
@@ -7,7 +5,6 @@ public class red : ghost{
         base.Start();
     }
 
-    
     public override void LevelUp(){
         speed+=0.3f;
         speedNormal+=0.3f;

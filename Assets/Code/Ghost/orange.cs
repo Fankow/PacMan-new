@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class orange : ghost{
     private GameObject forward1,forward2,forward3;
-    private float speedLimit=11;
+
+    protected override void Start(){
+        speedFast=11;
+        base.Start();
+    }
 
     public override void LevelUp(){
-        speedLimit+=0.2f;
+        speedFast+=0.2f;
         base.LevelUp();
     }
 
@@ -45,7 +47,7 @@ public class orange : ghost{
     protected override void Update(){
         if(CanUpdate()){
             if(pacmanFound&&!isEdible){
-                if(speed<speedLimit){
+                if(speed<speedFast){
                     speed+=Time.deltaTime*2.25f;
                 }
             }
@@ -60,12 +62,12 @@ public class orange : ghost{
     private void GetPacmanForwardNode(){
         node_control controller=target.GetComponent<node_control>();
         int forwardDirection=pacman.Direction;
-        if(forwardDirection<0){
-            goto Return_;
-        }
         forward1=null;
         forward2=null;
         forward3=null;
+        if(forwardDirection<0){
+            goto Return_;
+        }
         if((forward1=controller.NodeNearby[forwardDirection])!=null&&curNode!=forward1){
             controller=forward1.GetComponent<node_control>();
         }

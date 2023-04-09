@@ -18,7 +18,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
     [Header("sprites and images")]
     public Sprite pelletSprite;
     public Sprite energizerSprite;
-    public Image energizerEffectBar;
+    public Image energizerEffectBar,block;
     [Header("text")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI liveText;
@@ -47,6 +47,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
     private int lives=3,scores=0;
     private int scoresPerPellet=10,scoresPerGhost=100;
     private int level=1,maxLevel=10;
+    private int sceneIndex;
     
     private Dictionary<int,int> banned;
     private List<int> energizersRemain;
@@ -56,6 +57,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
         gameActive=false;
         frameRate=25;
         Application.targetFrameRate=frameRate;
+        sceneIndex=SceneManager.GetActiveScene().buildIndex;
 
         GameObject[] ghostsInScene=GameObject.FindGameObjectsWithTag("ghost");
         ghosts=new ghost[ghostsInScene.Length];
@@ -70,7 +72,8 @@ public class game_manager:MonoBehaviour,Igame_manager{
         banned=new Dictionary<int,int>();
         energizerNodeSize=new Vector2(0.8f,0.8f);
         pelletNodeSize=new Vector2(0.5f,0.5f);
-
+        
+        highestScoresText.text=string.Format("Highest\nScores:{0}",main_manager.instance.GetHighestScores(sceneIndex).ToString());
         levelText.text=string.Format("Levels:{0}\nScores:",level);
         scoreText.text=scores.ToString();
         liveText.text=string.Format("x {0}",lives);
@@ -269,6 +272,17 @@ public class game_manager:MonoBehaviour,Igame_manager{
 
 
     public void RestartGameButton(){
+        block.gameObject.SetActive(true);
+        main_manager.instance.SelectMap();
+        main_manager.instance.SaveScoreAndLive(sceneIndex,scores,lives);
+        main_manager.instance.UnLoadAllCanvas();
+        SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void ExitButton(){
+        block.gameObject.SetActive(true);
+        main_manager.instance.SelectMap();
+        main_manager.instance.SaveScoreAndLive(sceneIndex,scores,lives);
         SceneManager.LoadScene(0);
     }
 

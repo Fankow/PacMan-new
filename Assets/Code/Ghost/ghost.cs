@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random=UnityEngine.Random;
@@ -120,8 +119,6 @@ public abstract class ghost:entity,Ighost{
     protected int respawnTime;
 
     [Header("sprites")]
-    //[SerializeField]protected Sprite[] eyes;
-    //[SerializeField]protected Sprite bodyAfraid;
     [SerializeField]protected Sprite bodyNormal;
     [Header("SpriteRenderer")]
     [SerializeField]protected SpriteRenderer eyesRenderer;
@@ -155,14 +152,17 @@ public abstract class ghost:entity,Ighost{
     }
 
     protected virtual void Update(){
-        int nextDirection=AStar();
+        int nextDirection=pacmanFound?AStar():BFS();
         if(nextDirection<0){
+            pacmanFound=false;
             direction=RandomMove();
         }
         else if(isEdible){
+            pacmanFound=true;
             direction=Escape(3-nextDirection);
         }
         else{
+            pacmanFound=true;
             direction=nextDirection;
         }
         eyesRenderer.sprite=eyes[direction];
@@ -230,6 +230,7 @@ public abstract class ghost:entity,Ighost{
         if(countDown>0){return;}
         eyesRenderer.enabled=false;
         bodyRenderer.sprite=bodyAfraid;
+        speed=speedNormal;
         isEdible=true;
     }
 
