@@ -1323,8 +1323,8 @@ MonoBehaviour:
   column: 28
   frameRate: 30
   gameActive: 0
-  energizerSpawnNumber: 0
-  energizerLeast: 0
+  energizerSpawnNumber: 6
+  energizerLeast: 3
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13424,7 +13424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1948531512
 Transform:
   m_ObjectHideFlags: 0

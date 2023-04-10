@@ -6,13 +6,10 @@ public class node_control : MonoBehaviour{
     private GameObject[] nodeNearby;
     public GameObject[] NodeNearby{get {return nodeNearby;}}
 
-    private game_manager manager;
-
     delegate bool Comparator(GameObject node);
 
     void Start(){
         nodeNearby=new GameObject[4];//four direction, up,down,left,right
-        manager=GameObject.Find("Main Camera").GetComponent<game_manager>();
         StartCoroutine(WaitForGenerator());
     }
     IEnumerator WaitForGenerator(){
@@ -23,16 +20,16 @@ public class node_control : MonoBehaviour{
         //give node deleter some time, wait for it finishes deleting 
 
         if(gameObject.CompareTag("node_ghost")){
-            nodeNearby[manager.UP]=Search(Vector2.up,CmpGhost);
-            nodeNearby[manager.LEFT]=Search(-Vector2.right,CmpGhost);
-            nodeNearby[manager.RIGHT]=Search(Vector2.right,CmpGhost);
-            nodeNearby[manager.DOWN]=Search(-Vector2.up,CmpGhost);
+            nodeNearby[game_manager.UP]=Search(Vector2.up,CmpGhost);
+            nodeNearby[game_manager.LEFT]=Search(-Vector2.right,CmpGhost);
+            nodeNearby[game_manager.RIGHT]=Search(Vector2.right,CmpGhost);
+            nodeNearby[game_manager.DOWN]=Search(-Vector2.up,CmpGhost);
         }
         else{
-            nodeNearby[manager.UP]=Search(Vector2.up,Cmp);
-            nodeNearby[manager.LEFT]=Search(-Vector2.right,Cmp);
-            nodeNearby[manager.RIGHT]=Search(Vector2.right,Cmp);
-            nodeNearby[manager.DOWN]=Search(-Vector2.up,Cmp);
+            nodeNearby[game_manager.UP]=Search(Vector2.up,Cmp);
+            nodeNearby[game_manager.LEFT]=Search(-Vector2.right,Cmp);
+            nodeNearby[game_manager.RIGHT]=Search(Vector2.right,Cmp);
+            nodeNearby[game_manager.DOWN]=Search(-Vector2.up,Cmp);
         }
         //since node_ghost can connect to other nodes but not vice verse,
         //the search function are different;

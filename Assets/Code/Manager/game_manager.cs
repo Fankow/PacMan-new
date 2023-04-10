@@ -5,15 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public interface Igame_manager{
-    void EatPellet();
-    bool EatPacman();//when pacman is eaten by ghost, pacman call this function
-    void EatGhost();
-    void EatEnergizer(GameObject node);
-}
 
 public class game_manager:MonoBehaviour,Igame_manager{
-    public readonly int UP=0,DOWN=3,LEFT=1,RIGHT=2;//sum of opposite direction==3
+    public const int UP=0,DOWN=3,LEFT=1,RIGHT=2;//sum of opposite direction==3
 
     [Header("sprites and images")]
     public Sprite pelletSprite;

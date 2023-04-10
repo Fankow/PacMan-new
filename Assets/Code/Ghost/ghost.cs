@@ -97,12 +97,6 @@ internal class PriorityQueue{
 
 }
 
-public interface Ighost{
-    void LevelUp();
-    bool BeingEaten();
-    void SetEdible();
-    void UnsetEdible();
-}
 
 public abstract class ghost:entity,Ighost{
     protected const int NOT_FOUND=-1,SAME_NODE=-2;

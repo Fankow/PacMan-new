@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface Ipacman_control{
-    void LevelUp();//called by game_manager when level up
-}
 
 public class pacman_control:entity,Ipacman_control{
     public Sprite pelletSprite;
@@ -71,16 +68,16 @@ public class pacman_control:entity,Ipacman_control{
         }
 
         if(Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.UpArrow)){
-            SetAnimation(false,false,true,manager.UP);
+            SetAnimation(false,false,true,game_manager.UP);
         }
         else if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.LeftArrow)){
-            SetAnimation(true,false,false,manager.LEFT);
+            SetAnimation(true,false,false,game_manager.LEFT);
         }
         else if(Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.DownArrow)){
-            SetAnimation(false,true,true,manager.DOWN);
+            SetAnimation(false,true,true,game_manager.DOWN);
         }
         else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow)){
-            SetAnimation(false,false,false,manager.RIGHT);
+            SetAnimation(false,false,false,game_manager.RIGHT);
         }
         else{
             direction=previousDirection;

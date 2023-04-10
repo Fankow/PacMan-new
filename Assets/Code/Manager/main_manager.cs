@@ -16,7 +16,8 @@ internal struct Record{
     }
 }
 
-public class main_manager : MonoBehaviour{
+
+public class main_manager : MonoBehaviour,Imain_manager{
     [HideInInspector]public static main_manager instance;
     public Canvas maps,title,help,login;
 

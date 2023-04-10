@@ -19,12 +19,12 @@ public class pink : ghost{
                 float pacmanX=target.transform.position.x,pacmanY=target.transform.position.y;
                 float selfX=transform.position.x,selfY=transform.position.y;
                 if(Mathf.Abs(selfY-pacmanY)<=float.Epsilon){
-                    nextDir=selfX<pacmanX? manager.RIGHT:manager.LEFT;
+                    nextDir=selfX<pacmanX? game_manager.RIGHT:game_manager.LEFT;
                     CheckObstacles(nextDir);
 
                 }//same y==vertical
                 else if(Mathf.Abs(selfX-pacmanX)<=float.Epsilon){
-                    nextDir=selfY<pacmanY? manager.UP:manager.DOWN;
+                    nextDir=selfY<pacmanY? game_manager.UP:game_manager.DOWN;
                     CheckObstacles(nextDir);
 
                 }//same x==horizontal
