@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random=UnityEngine.Random;
 
 
 public class pacman_control:entity,Ipacman_control{
@@ -14,11 +15,13 @@ public class pacman_control:entity,Ipacman_control{
     private SpriteRenderer render;
     private Vector2 pelletNodeSize;
     private WaitForSeconds deadAnimationTime;
+    private GameObject[] portals;
     private int speedFastTime,refillTime;
     private bool canSpeedFast=true,isRefill=false,updated=false;
     private int previousDirection;
 
     private void Awake(){
+        portals=GameObject.FindGameObjectsWithTag("node_tp");
         ghost.pacman=this;
     }
 
@@ -103,8 +106,11 @@ public class pacman_control:entity,Ipacman_control{
                     curNode=nextNode;
                     //continue run at previousDirection
                 }
-                ghost.target=curNode;
             }
+            if(previousDirection>=0&&curNode.CompareTag("node_tp")){
+                RandomTeleport();
+            }
+            ghost.target=curNode;
         }
     }
 
@@ -157,5 +163,21 @@ public class pacman_control:entity,Ipacman_control{
         direction=-1;previousDirection=-1;
         speedTimeBar.fillAmount=1;
         ghost.target=curNode;
+    }
+
+    private void RandomTeleport(){
+        if(portals.Length<2){return;}
+        int i;
+        for(i=0;i<portals.Length;i++){
+            if(curNode==portals[i]){break;}
+        }
+        int next=Random.Range(0,portals.Length-1);
+        if(next>=i){
+            next++;
+        }
+        curNode=portals[next];
+        transform.position=curNode.transform.position;
+        previousDirection=-1;
+        direction=-1;
     }
 }
