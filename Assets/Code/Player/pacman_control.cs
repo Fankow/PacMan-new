@@ -152,6 +152,7 @@ public class pacman_control:entity,Ipacman_control{
     }
     protected override void Restart(){
         base.Restart();
+        countDown=0;
         canSpeedFast=true;isRefill=false;
         direction=-1;previousDirection=-1;
         speedTimeBar.fillAmount=1;

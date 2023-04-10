@@ -362,7 +362,5 @@ public abstract class ghost:entity,Ighost{
     protected virtual bool Reach(GameObject node){
         return node==target;
     }
-}
-
-
     
+}

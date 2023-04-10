@@ -3438,7 +3438,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542155420}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: ChangePasswordButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &542155420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,7 +5040,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 765571317}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349178}
+        m_TargetAssemblyTypeName: main_manager, Assembly-CSharp
+        m_MethodName: LogOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &765571317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5150,7 +5174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 766396361}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: CreatePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &766396361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5703,7 +5739,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 880527284}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: ReturnLoginButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &880527284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6472,7 +6520,6 @@ GameObject:
   - component: {fileID: 1001199064}
   - component: {fileID: 1001199063}
   - component: {fileID: 1001199062}
-  - component: {fileID: 1001199065}
   m_Layer: 5
   m_Name: login
   m_TagString: Untagged
@@ -6544,7 +6591,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1001199063}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: PlayerLoginButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1001199063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6583,18 +6642,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001199060}
   m_CullTransparentMesh: 1
---- !u!114 &1001199065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001199060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37db051cbc4f4e844b91918d8e0b1fcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1008361719
 GameObject:
   m_ObjectHideFlags: 0
@@ -6754,7 +6801,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1029999976}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: ReturnLoginButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1029999976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7650,7 +7709,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1167982294}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: ChangePassword
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1167982294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7849,13 +7920,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: CreatePlayerButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10256,7 +10327,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1518390108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: ReturnLoginButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1518390108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12436,6 +12519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2024349177}
   - component: {fileID: 2024349178}
+  - component: {fileID: 2024349179}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -12478,7 +12562,26 @@ MonoBehaviour:
   title: {fileID: 833453300}
   help: {fileID: 478541836}
   login: {fileID: 189439896}
-  block: {fileID: 0}
+  player: {fileID: 2024349179}
+--- !u!114 &2024349179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024349175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d54d2020033d4f41bc1ea915c770f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_name: 
+  create_player: {fileID: 88348657}
+  player_login: {fileID: 1109740407}
+  delete_player: {fileID: 719759943}
+  change_password: {fileID: 45409258}
+  Text: {fileID: 514831968}
+  data: {fileID: 2024349178}
 --- !u!1 &2039765846
 GameObject:
   m_ObjectHideFlags: 0
@@ -12697,7 +12800,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2066642487}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: DeletePlayerButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2066642487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13496,7 +13611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2097766111}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024349179}
+        m_TargetAssemblyTypeName: Player_manager, Assembly-CSharp
+        m_MethodName: DeletePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2097766111
 MonoBehaviour:
   m_ObjectHideFlags: 0

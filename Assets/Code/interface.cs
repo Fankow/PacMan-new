@@ -1,6 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IPlayer_manager{
+    void CreatePlayerButton();//button
+    void ReturnLoginButton();//button
+    void DeletePlayerButton();//button
+    void ChangePasswordButton();//button
+    void Reset();//main_manager
+    void PlayerLoginButton();//button
+    void ChangePassword();//button
+    void DeletePlayer();//button
+    void CreatePlayer();//button
+}
+
 public interface Imain_manager{
     void Quit();//button
     void SelectMap();//button
@@ -13,6 +25,7 @@ public interface Imain_manager{
 
     int GetHighestScores(int mapIndex);//game_manager
     void SaveScoreAndLive(int mapIndex,int scores,int lives);//game_manager
+    void LoginSuccess(in string name);//Playe_manager
 }
 
 

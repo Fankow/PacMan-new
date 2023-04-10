@@ -13,12 +13,12 @@ using Mono.Data.Sqlite;
 
 using TMPro;
 
-public class Player_manager : database_manager{
+public class Player_manager : database_manager,IPlayer_manager{
     [HideInInspector]public string player_name;
     public GameObject create_player,player_login,delete_player,change_password;
     public TextMeshProUGUI Text;
 
-    private main_manager data;
+    public main_manager data;
     
 
     public void CreatePlayerButton(){
@@ -61,7 +61,6 @@ public class Player_manager : database_manager{
     }
     protected override void Awake(){
         base.Awake();
-        data=gameObject.GetComponent<main_manager>();
         Reset();
         command=db_connect.CreateCommand();
         command.CommandText="select sql from sqlite_master where name='Player'";
@@ -117,7 +116,7 @@ public class Player_manager : database_manager{
     }
     
 
-    public void PlayerLogin(){
+    public void PlayerLoginButton(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         TMP_InputField password=transform.Find("Login").transform.Find("password").GetComponent<TMP_InputField>();
 
@@ -172,22 +171,25 @@ public class Player_manager : database_manager{
         }
     }
 
-
+    #pragma warning disable CS0168
     public void DeletePlayer(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         TMP_InputField password=transform.Find("Login").transform.Find("password").GetComponent<TMP_InputField>();
         if(CheckPlayerExists(input_name,password)){
             command=db_connect.CreateCommand();
-            command.CommandText=string.Format("delete from Player where name='{0}'",input_name.text);
-            command.ExecuteNonQuery();
-            command=db_connect.CreateCommand();
-            command.CommandText=string.Format("delete from Record where name='{0}'",input_name.text);
-            command.ExecuteNonQuery();
+            try{
+                command.CommandText=string.Format("delete from Player where name='{0}'",input_name.text);
+                command.ExecuteNonQuery();
+                command=db_connect.CreateCommand();
+                command.CommandText=string.Format("delete from Record where name='{0}'",input_name.text);
+                command.ExecuteNonQuery();
+            }catch(Exception e){}
             password.text="";
             input_name.text="";
             ShowText("Delete Successfully");
         }
     }
+    #pragma warning restore CS0168
     
 
     public void ChangePassword(){

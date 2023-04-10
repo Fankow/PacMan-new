@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEditor;
 
 using Mono.Data.Sqlite;
 
@@ -19,14 +20,14 @@ internal struct Record{
 }
 
 
-public  class main_manager : database_manager{
+public  class main_manager : database_manager,Imain_manager{
     [HideInInspector]public static main_manager instance;
     public Canvas maps,title,help,login;
-    public Image block;
+    public Player_manager player;
+    //public Image block;
 
-    private const int sceneOffset=1,mapNumber=1;
+    private const int sceneOffset=1,mapNumber=2;
     private StringBuilder displayText=new StringBuilder(40);
-    private Player_manager player;
     private string playerName;
     private static Record[] records;
     //change this offset when
@@ -34,7 +35,11 @@ public  class main_manager : database_manager{
     //scene remove before MapXX -> -1
 
     public void Quit(){
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying=false;
+        #else
         Application.Quit();
+        #endif
     }
 
     public void SelectMap(){
@@ -60,6 +65,7 @@ public  class main_manager : database_manager{
         title.gameObject.SetActive(false);
         maps.gameObject.SetActive(false);
         login.gameObject.SetActive(true);
+        player.Reset();
     }
 
     public void HelpPage(){
@@ -101,11 +107,21 @@ public  class main_manager : database_manager{
     }
 
 
+    private void UpdateDB(int id,int scores,int lives){
+        OpenDB();
+        command=db_connect.CreateCommand();
+        command.CommandText=string.Format("update Record set scores={0},lives={1} where id={2} and name='{3}'",scores,lives,id,playerName);
+        command.ExecuteNonQuery();
+        db_connect.Close();
+    }
+
+
     public void SaveScoreAndLive(int mapIndex,int scores,int lives){
         if(scores>records[mapIndex-sceneOffset].Scores){
             records[mapIndex-sceneOffset].Scores=scores;
             records[mapIndex-sceneOffset].Lives=lives;
             mapIndex=mapIndex-sceneOffset+1;
+            UpdateDB(mapIndex,scores,lives);
             SetDisplayScore((mapIndex<10?GameObject.Find("Map:0"+mapIndex.ToString()):GameObject.Find("Map:"+mapIndex.ToString())),scores,lives);
         }
     }
@@ -118,7 +134,7 @@ public  class main_manager : database_manager{
         sum=sum*10+(n[1]-'0');
         records[sum-1].Lives=0;
         records[sum-1].Scores=0;
-
+        UpdateDB(sum,0,0);
         tem=tem.transform.parent.gameObject;
         SetDisplayScore(tem,0,0);
     }
@@ -133,6 +149,7 @@ public  class main_manager : database_manager{
             Destroy(gameObject);
         }
         else{
+            base.Awake();
             records=new Record[mapNumber];
             instance=this;
             DontDestroyOnLoad(gameObject);
@@ -141,7 +158,7 @@ public  class main_manager : database_manager{
 
     public void LoginSuccess(in string name){
         SelectMap();
-        block.gameObject.SetActive(true);
+        //block.gameObject.SetActive(true);
         help.gameObject.SetActive(false);
         playerName=name;
         GameObject mapX;
@@ -157,9 +174,9 @@ public  class main_manager : database_manager{
             SqliteDataReader read;
             for(i=0;i<10&&i<mapNumber;i=j){
                 j=i+1;
-                mapX=GameObject.Find("map0"+j.ToString());
+                mapX=GameObject.Find("Map:0"+j.ToString());
                 if(mapX==null){
-                    Debug.Log("map0"+j+" is missing");
+                    Debug.Log("Map:0"+j+" is missing");
                     goto Stop_;
                 }
                 command=db_connect.CreateCommand();
@@ -185,9 +202,9 @@ public  class main_manager : database_manager{
 
             for(;i<99&&i<mapNumber;i++){
                 j=i+1;
-                mapX=GameObject.Find("map"+j.ToString());
+                mapX=GameObject.Find("Map:"+j.ToString());
                 if(mapX==null){
-                    Debug.Log("map"+j+" is missing");
+                    Debug.Log("Map:"+j+" is missing");
                     goto Stop_;
                 }
                 command=db_connect.CreateCommand();
@@ -213,9 +230,9 @@ public  class main_manager : database_manager{
         else{
             for(i=0;i<10&&i<mapNumber;i=j){
                 j=i+1;
-                mapX=GameObject.Find("map0"+j.ToString());
+                mapX=GameObject.Find("Map:0"+j.ToString());
                 if(mapX==null){
-                    Debug.Log("map0"+j+" is missing");
+                    Debug.Log("Map:0"+j+" is missing");
                     goto Stop_;
                 }
                 SetDisplayScore(mapX,0,0);
@@ -223,9 +240,9 @@ public  class main_manager : database_manager{
 
             for(;i<99&&i<mapNumber;i++){
                 j=i+1;
-                mapX=GameObject.Find("map"+j.ToString());
+                mapX=GameObject.Find("Map:"+j.ToString());
                 if(mapX==null){
-                    Debug.Log("map"+j+" is missing");
+                    Debug.Log("Map:"+j+" is missing");
                     goto Stop_;
                 }
                 SetDisplayScore(mapX,0,0);
@@ -233,7 +250,7 @@ public  class main_manager : database_manager{
         }
 Stop_:
 
-        block.gameObject.SetActive(false);
+        //block.gameObject.SetActive(false);
         ReturnTitle();
         DontDestroyOnLoad(gameObject);
         db_connect.Close();
