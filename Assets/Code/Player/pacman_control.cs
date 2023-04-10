@@ -82,9 +82,7 @@ public class pacman_control:entity,Ipacman_control{
         else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow)){
             SetAnimation(false,false,false,game_manager.RIGHT);
         }
-        else{
-            direction=previousDirection;
-        }//pacman keep moving in has previous direction
+
 
         if(Input.GetKeyDown(KeyCode.Space)&&canSpeedFast){
             speed=speedFast;
