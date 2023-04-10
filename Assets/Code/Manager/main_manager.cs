@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+using Mono.Data.Sqlite;
+
 using TMPro;
 
 internal struct Record{
@@ -17,12 +19,15 @@ internal struct Record{
 }
 
 
-public class main_manager : MonoBehaviour,Imain_manager{
+public  class main_manager : database_manager{
     [HideInInspector]public static main_manager instance;
     public Canvas maps,title,help,login;
+    public Image block;
 
     private const int sceneOffset=1,mapNumber=1;
     private StringBuilder displayText=new StringBuilder(40);
+    private Player_manager player;
+    private string playerName;
     private static Record[] records;
     //change this offset when
     //new scene inserted before MapXX -> +1
@@ -62,6 +67,17 @@ public class main_manager : MonoBehaviour,Imain_manager{
         maps.gameObject.SetActive(false);
         help.gameObject.SetActive(true);
     }
+
+    protected override void Action(){
+        int i;
+        for(i=0;i<mapNumber;i++){
+            records[i].Lives=0;
+            records[i].Scores=0;
+        }
+        command=db_connect.CreateCommand();
+        command.CommandText="create table Record(name text not null,id integer not null,scores integer not null,lives integer not null)";
+        command.ExecuteNonQuery();
+    }    
 
     public void LoadMap(){
         string n=EventSystem.current.currentSelectedGameObject.name;
@@ -112,7 +128,7 @@ public class main_manager : MonoBehaviour,Imain_manager{
         return records[mapIndex-sceneOffset].Scores;
     }
 
-    private void Awake(){
+    protected override void Awake(){
         if(instance!=null){
             Destroy(gameObject);
         }
@@ -121,5 +137,105 @@ public class main_manager : MonoBehaviour,Imain_manager{
             instance=this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    public void LoginSuccess(in string name){
+        SelectMap();
+        block.gameObject.SetActive(true);
+        help.gameObject.SetActive(false);
+        playerName=name;
+        GameObject mapX;
+        int i,j;
+        records=new Record[mapNumber];
+        
+        if(OpenDB()){
+            command=db_connect.CreateCommand();
+            command.CommandText="select sql from sqlite_master where name='Record'";
+            if(command.ExecuteReader().HasRows==false){
+                Action();
+            }
+            SqliteDataReader read;
+            for(i=0;i<10&&i<mapNumber;i=j){
+                j=i+1;
+                mapX=GameObject.Find("map0"+j.ToString());
+                if(mapX==null){
+                    Debug.Log("map0"+j+" is missing");
+                    goto Stop_;
+                }
+                command=db_connect.CreateCommand();
+                command.CommandText="select scores,lives from Record where id=@a and name=@b";
+                command.Parameters.Add(new SqliteParameter("@a",j));
+                command.Parameters.Add(new SqliteParameter("@b",playerName));
+                read=command.ExecuteReader();
+                //Debug.Log(command.CommandText+" "+read.HasRows);
+                if(read.HasRows==false){
+                    records[i].Scores=0;
+                    records[i].Lives=0;
+                    command=db_connect.CreateCommand();
+                    command.CommandText=string.Format("insert into Record values({0},{1},0,0)",playerName,j);
+                    command.ExecuteNonQuery();
+                }
+                else{
+                    records[i].Scores=int.Parse(read["scores"].ToString());
+                    records[i].Lives=int.Parse(read["lives"].ToString());
+                }
+                SetDisplayScore(mapX,records[i].Scores,records[i].Lives);
+                read.Close();
+            }
+
+            for(;i<99&&i<mapNumber;i++){
+                j=i+1;
+                mapX=GameObject.Find("map"+j.ToString());
+                if(mapX==null){
+                    Debug.Log("map"+j+" is missing");
+                    goto Stop_;
+                }
+                command=db_connect.CreateCommand();
+                command.CommandText="select scores,lives from Record where id=@a and name=@b";
+                command.Parameters.Add(new SqliteParameter("@a",j));
+                command.Parameters.Add(new SqliteParameter("@b",playerName));
+                read=command.ExecuteReader();
+                if(read==null){
+                    records[i].Scores=0;
+                    records[i].Lives=0;
+                    command=db_connect.CreateCommand();
+                    command.CommandText=string.Format("insert into Record values({0},{1},0,0)",playerName,j);
+                    command.ExecuteNonQuery();
+                }
+                else{
+                    records[i].Scores=int.Parse(read["scores"].ToString());
+                    records[i].Lives=int.Parse(read["lives"].ToString());
+                }
+                SetDisplayScore(mapX,records[i].Scores,records[i].Lives);
+                read.Close();
+            }
+        }
+        else{
+            for(i=0;i<10&&i<mapNumber;i=j){
+                j=i+1;
+                mapX=GameObject.Find("map0"+j.ToString());
+                if(mapX==null){
+                    Debug.Log("map0"+j+" is missing");
+                    goto Stop_;
+                }
+                SetDisplayScore(mapX,0,0);
+            }
+
+            for(;i<99&&i<mapNumber;i++){
+                j=i+1;
+                mapX=GameObject.Find("map"+j.ToString());
+                if(mapX==null){
+                    Debug.Log("map"+j+" is missing");
+                    goto Stop_;
+                }
+                SetDisplayScore(mapX,0,0);
+            }
+        }
+Stop_:
+
+        block.gameObject.SetActive(false);
+        ReturnTitle();
+        DontDestroyOnLoad(gameObject);
+        db_connect.Close();
     }
 }
