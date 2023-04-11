@@ -10,7 +10,11 @@ public class pacman_control:entity,Ipacman_control{
     public Sprite pelletSprite;
     public AnimationClip deadAnimation;
     public Image speedTimeBar;
-    
+    public AudioClip munch1;
+    public AudioClip munch2;
+    public AudioClip dead;
+    public AudioClip teleport;
+    private AudioSource audio;
     private Animator anime;
     private SpriteRenderer render;
     private Vector2 pelletNodeSize;
@@ -19,6 +23,7 @@ public class pacman_control:entity,Ipacman_control{
     private int speedFastTime,refillTime;
     private bool canSpeedFast=true,isRefill=false,updated=false;
     private int previousDirection;
+
 
     private void Awake(){
         portals=GameObject.FindGameObjectsWithTag("node_tp");
@@ -29,7 +34,7 @@ public class pacman_control:entity,Ipacman_control{
         render=transform.GetChild(0).transform.gameObject.GetComponent<SpriteRenderer>();
         anime=transform.GetChild(0).transform.gameObject.GetComponent<Animator>();
         base.Start();
-
+        audio = transform.GetComponent<AudioSource>();
         pelletNodeSize=new Vector2(0.5f,0.5f);
         deadAnimationTime=new WaitForSeconds(deadAnimation.length/0.65f);
         direction=-1;
@@ -70,19 +75,18 @@ public class pacman_control:entity,Ipacman_control{
             }
         }
 
-        if(Input.GetKey(KeyCode.W)||Input.GetKey(KeyCode.UpArrow)){
+        if(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)){
             SetAnimation(false,false,true,game_manager.UP);
         }
-        else if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.LeftArrow)){
+        else if(Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){
             SetAnimation(true,false,false,game_manager.LEFT);
         }
-        else if(Input.GetKey(KeyCode.S)||Input.GetKey(KeyCode.DownArrow)){
+        else if(Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)){
             SetAnimation(false,true,true,game_manager.DOWN);
         }
-        else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow)){
+        else if(Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)){
             SetAnimation(false,false,false,game_manager.RIGHT);
         }
-
 
         if(Input.GetKeyDown(KeyCode.Space)&&canSpeedFast){
             speed=speedFast;
@@ -122,11 +126,13 @@ public class pacman_control:entity,Ipacman_control{
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             //dont need its collider anymore
             manager.EatPellet();
+            audio.PlayOneShot(munch1);
         }
         else if(other.gameObject.CompareTag("node_energizer")){
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             manager.EatEnergizer(other.gameObject);
+            audio.PlayOneShot(munch2);
         }
         else if(other.gameObject.CompareTag("ghost")){
             if(other.gameObject.GetComponent<ghost>().BeingEaten()){
@@ -144,12 +150,14 @@ public class pacman_control:entity,Ipacman_control{
         yield return deadAnimationTime;
         if(manager.EatPacman()){
             Restart();
+            audio.PlayOneShot(dead);
             manager.gameActive=true;
         }
         else{
             gameObject.SetActive(false);
         }
     }
+   
 
     public override void LevelUp(){
         Restart();
