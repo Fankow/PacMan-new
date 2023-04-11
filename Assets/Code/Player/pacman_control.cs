@@ -14,7 +14,7 @@ public class pacman_control:entity,Ipacman_control{
     public AudioClip munch2;
     public AudioClip dead;
     public AudioClip teleport;
-    private AudioSource audio;
+    private AudioSource audio_;
     private Animator anime;
     private SpriteRenderer render;
     private Vector2 pelletNodeSize;
@@ -34,7 +34,7 @@ public class pacman_control:entity,Ipacman_control{
         render=transform.GetChild(0).transform.gameObject.GetComponent<SpriteRenderer>();
         anime=transform.GetChild(0).transform.gameObject.GetComponent<Animator>();
         base.Start();
-        audio = transform.GetComponent<AudioSource>();
+        audio_ = transform.GetComponent<AudioSource>();
         pelletNodeSize=new Vector2(0.5f,0.5f);
         deadAnimationTime=new WaitForSeconds(deadAnimation.length/0.65f);
         direction=-1;
@@ -126,13 +126,13 @@ public class pacman_control:entity,Ipacman_control{
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             //dont need its collider anymore
             manager.EatPellet();
-            audio.PlayOneShot(munch1);
+            audio_.PlayOneShot(munch1);
         }
         else if(other.gameObject.CompareTag("node_energizer")){
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             manager.EatEnergizer(other.gameObject);
-            audio.PlayOneShot(munch2);
+            audio_.PlayOneShot(munch2);
         }
         else if(other.gameObject.CompareTag("ghost")){
             if(other.gameObject.GetComponent<ghost>().BeingEaten()){
@@ -150,7 +150,7 @@ public class pacman_control:entity,Ipacman_control{
         yield return deadAnimationTime;
         if(manager.EatPacman()){
             Restart();
-            audio.PlayOneShot(dead);
+            audio_.PlayOneShot(dead);
             manager.gameActive=true;
         }
         else{
