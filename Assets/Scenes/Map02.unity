@@ -9421,7 +9421,7 @@ MonoBehaviour:
   deadAnimation: {fileID: 7400000, guid: a4c7a0334d4261f4c997be62deed37bf, type: 2}
   speedTimeBar: {fileID: 318300907}
   munch1: {fileID: 8300000, guid: e61452a122c612042bf635fd2f8a9a29, type: 3}
-  munch2: {fileID: 0}
+  munch2: {fileID: 8300000, guid: 01b4321c6053bba4fab2116cdda6d038, type: 3}
   dead: {fileID: 8300000, guid: 54d9c85935e6d3145bfe919ea5b558af, type: 3}
   teleport: {fileID: 8300000, guid: 01b4321c6053bba4fab2116cdda6d038, type: 3}
 --- !u!82 &1669796505
