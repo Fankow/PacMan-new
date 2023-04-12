@@ -1,3 +1,4 @@
+#define TEST_MAP
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,8 @@ public class game_manager:MonoBehaviour,Igame_manager{
     [Header("buttons")]
     public GameObject pauseButton;
     [Header("Misc")]
-    public int row,column;
+    public int row;
+    public int column;
     [HideInInspector]public int frameRate;
     [HideInInspector]public bool gameActive;
 
@@ -67,7 +69,10 @@ public class game_manager:MonoBehaviour,Igame_manager{
         energizerNodeSize=new Vector2(0.8f,0.8f);
         pelletNodeSize=new Vector2(0.5f,0.5f);
         
+        #if TEST_MAP
+        #else
         highestScoresText.text=string.Format("Highest\nScores:{0}",main_manager.instance.GetHighestScores(sceneIndex).ToString());
+        #endif
         levelText.text=string.Format("Levels:{0}\nScores:",level);
         scoreText.text=scores.ToString();
         liveText.text=string.Format("x {0}",lives);
@@ -267,16 +272,22 @@ public class game_manager:MonoBehaviour,Igame_manager{
 
     public void RestartGameButton(){
         block.gameObject.SetActive(true);
+        #if TEST_MAP
+        #else
         main_manager.instance.SelectMap();
         main_manager.instance.SaveScoreAndLive(sceneIndex,scores,lives);
         main_manager.instance.UnLoadAllCanvas();
+        #endif
         SceneManager.LoadScene(sceneIndex);
     }
 
     public void ExitButton(){
         block.gameObject.SetActive(true);
+        #if TEST_MAP
+        #else
         main_manager.instance.SelectMap();
         main_manager.instance.SaveScoreAndLive(sceneIndex,scores,lives);
+        #endif
         SceneManager.LoadScene(0);
     }
 
