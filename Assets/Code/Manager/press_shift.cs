@@ -8,7 +8,7 @@ public class press_shift:MonoBehaviour{
     public game_manager manager;
 
     private void Update(){
-        if(Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)){
+        if(Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)||manager.gameActive){
             manager.gameActive=true;
             pressToStartText.gameObject.SetActive(false);
             this.enabled=false;
