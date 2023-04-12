@@ -26,7 +26,11 @@ public  class main_manager : database_manager,Imain_manager{
     public Player_manager player;
     //public Image block;
 
+<<<<<<< HEAD
     private const int sceneOffset=1,mapNumber=6;
+=======
+    private const int sceneOffset=1,mapNumber=5;
+>>>>>>> 9f754d0f1e711b7be7fd1476738826bde4011446
     private StringBuilder displayText=new StringBuilder(40);
     private string playerName;
     private static Record[] records;
