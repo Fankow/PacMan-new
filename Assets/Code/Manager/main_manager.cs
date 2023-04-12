@@ -189,7 +189,9 @@ public  class main_manager : database_manager,Imain_manager{
                     records[i].Scores=0;
                     records[i].Lives=0;
                     command=db_connect.CreateCommand();
-                    command.CommandText=string.Format("insert into Record values({0},{1},0,0)",playerName,j);
+                    command.CommandText=string.Format("insert into Record VALUES (@param1,@param2,0,0)");
+                    command.Parameters.AddWithValue("@param1", playerName);
+                    command.Parameters.AddWithValue("@param2", j);
                     command.ExecuteNonQuery();
                 }
                 else{
@@ -216,7 +218,9 @@ public  class main_manager : database_manager,Imain_manager{
                     records[i].Scores=0;
                     records[i].Lives=0;
                     command=db_connect.CreateCommand();
-                    command.CommandText=string.Format("insert into Record values({0},{1},0,0)",playerName,j);
+                    command.CommandText=string.Format("insert into Record VALUES (@param1,@param2,0,0)");
+                    command.Parameters.AddWithValue("@param1", playerName);
+                    command.Parameters.AddWithValue("@param2", j);
                     command.ExecuteNonQuery();
                 }
                 else{

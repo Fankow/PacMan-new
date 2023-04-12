@@ -161,7 +161,9 @@ public class Player_manager : database_manager,IPlayer_manager{
             else{
                 read.Close();
                 command=db_connect.CreateCommand();
-                command.CommandText=string.Format("insert into Player values({0},{1})",input_name.text,password.text);
+                command.CommandText=string.Format("insert into Player (name,pw) VALUES (@param1,@param2)");
+                command.Parameters.AddWithValue("@param1", input_name.text);
+                command.Parameters.AddWithValue("@param2", password.text);
                 command.ExecuteNonQuery();
                 ShowText("Create New Player Success\nPlease Return To Login Page And Login");
                 input_name.text="";
