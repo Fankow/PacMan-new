@@ -17,6 +17,7 @@ public class Player_manager : database_manager,IPlayer_manager{
     [HideInInspector]public string player_name;
     public GameObject create_player,player_login,delete_player,change_password;
     public TextMeshProUGUI Text;
+    public static Player_manager instance=null;
 
     public main_manager data;
     
@@ -60,12 +61,18 @@ public class Player_manager : database_manager,IPlayer_manager{
         OpenDB();
     }
     protected override void Awake(){
-        base.Awake();
-        Reset();
-        command=db_connect.CreateCommand();
-        command.CommandText="select sql from sqlite_master where name='Player'";
-        if(command.ExecuteReader().HasRows==false){
-            Action();
+        if(instance==null){
+            instance=this;
+            base.Awake();
+            Reset();
+            command=db_connect.CreateCommand();
+            command.CommandText="select sql from sqlite_master where name='Player'";
+            if(command.ExecuteReader().HasRows==false){
+                Action();
+            }
+        }
+        else{
+            
         }
     }
 
