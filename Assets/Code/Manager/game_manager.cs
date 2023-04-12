@@ -1,4 +1,4 @@
-#define TEST_MAP
+//#define TEST_MAP
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
