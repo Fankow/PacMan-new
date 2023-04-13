@@ -22,6 +22,7 @@ public interface Imain_manager{
     void HelpPage();//button
     void LoadMap();//button+game_manager
     void ClearData();//button
+    void ClearData(int index);//game_manager
 
     int GetHighestScores(int mapIndex);//game_manager
     void SaveScoreAndLive(int mapIndex,int scores,int lives);//game_manager

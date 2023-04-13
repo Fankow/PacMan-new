@@ -270,6 +270,19 @@ public class game_manager:MonoBehaviour,Igame_manager{
     }
 
 
+    public void ClearHighestScoreButton(){
+        block.gameObject.SetActive(true);
+        highestScoresText.text="Highest\nScores:0";
+        #if TEST_MAP
+        #else
+        main_manager.instance.SelectMap();
+        main_manager.instance.ClearData(sceneIndex);
+        main_manager.instance.UnLoadAllCanvas();
+        #endif
+        block.gameObject.SetActive(false);
+    }
+
+
     public void RestartGameButton(){
         block.gameObject.SetActive(true);
         #if TEST_MAP

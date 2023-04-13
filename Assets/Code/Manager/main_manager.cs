@@ -141,6 +141,17 @@ public  class main_manager : database_manager,Imain_manager{
     }
 
 
+    public void ClearData(int index){
+        index-=sceneOffset;
+        index++;
+        records[index-1].Lives=0;
+        records[index-1].Scores=0;
+        UpdateDB(index,0,0);
+        GameObject tem=GameObject.Find($"Map:0{index}");
+        SetDisplayScore(tem,0,0);
+    }
+
+
     public int GetHighestScores(int mapIndex){
         return records[mapIndex-sceneOffset].Scores;
     }
