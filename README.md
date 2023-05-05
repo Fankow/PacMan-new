@@ -34,7 +34,7 @@ Advance features:
 – Player can have unlimited lives
 – Player can speed up when the “space” key is pressed to escape or chase ghosts (after he eats the energizer).
 – Both ghost and player move faster but become more difficult to control precise movement.
-– More maps, each map has up to ten levels, the higher level, the more scores per pellet, but the status (speed, detect range) of ghosts also increases, the number of  energizer spawned decreases.
+– More maps, each map has up to ten levels, the higher level, the more scores per pellet, but the status (speed, detect range) of ghosts also increases, the number of energizer spawned decreases.
 – Randomized energizer spawn position
 – Random teleportation
 – Redesign ghost movement
