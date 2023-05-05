@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//the class that control "press shift to start" on scene and following actions
 public class press_shift:MonoBehaviour{
     public TextMeshProUGUI pressToStartText;
     public game_manager manager;

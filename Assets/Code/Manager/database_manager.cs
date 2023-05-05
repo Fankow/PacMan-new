@@ -23,18 +23,18 @@ public abstract class database_manager : MonoBehaviour{
     protected bool OpenDB(){
         if(Directory.Exists(Application.dataPath+@"/DB")==false){
             Directory.CreateDirectory(Application.dataPath+@"/DB");
-        }
+        }//check folder exists
         if(File.Exists(Application.dataPath+@"/DB/data.db")==false){
             db_connect.ConnectionString=string.Format("{0};Mode=ReadWriteCreate;",dblocation);
             db_connect.Open();
             Action();
             return false;
-        }
+        }//check database exists, if no db, create a new one and open
         else{
             db_connect.ConnectionString=string.Format("{0};Mode=ReadWrite;",dblocation);;
             db_connect.Open();
             return true;
-        }
+        }//open a existing db
     }
 
     protected abstract void Action();

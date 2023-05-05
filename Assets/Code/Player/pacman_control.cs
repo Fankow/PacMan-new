@@ -56,6 +56,8 @@ public class pacman_control:entity,Ipacman_control{
             return;
         }
         updated=true;
+        //check if CD > 0
+        //if true, consume the speed time bar then refill 
         if(countDown>0){
             countDown--;
             if(isRefill){
@@ -88,6 +90,7 @@ public class pacman_control:entity,Ipacman_control{
             SetAnimation(false,false,false,game_manager.RIGHT);
         }
 
+        //speed up
         if(Input.GetKeyDown(KeyCode.Space)&&canSpeedFast){
             speed=speedFast;
             canSpeedFast=false;
@@ -111,6 +114,7 @@ public class pacman_control:entity,Ipacman_control{
             }
             if(previousDirection>=0&&curNode.CompareTag("node_tp")){
                 RandomTeleport();
+                //after teleportation if no any valid move, previousDirection will always be -1 and no teleport again
             }
             ghost.target=curNode;
         }
@@ -162,6 +166,7 @@ public class pacman_control:entity,Ipacman_control{
     public override void LevelUp(){
         Restart();
     }
+    //reset all variables
     protected override void Restart(){
         base.Restart();
         countDown=0;

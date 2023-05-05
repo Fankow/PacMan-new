@@ -19,21 +19,21 @@ internal struct Record{
     }
 }
 
-
+//after login to the game
 public  class main_manager : database_manager,Imain_manager{
-    [HideInInspector]public static main_manager instance;
+    [HideInInspector]public static main_manager instance;//singleton to prevent DDOL instantiate many copies
     public Canvas maps,title,help,login;
     public Player_manager player;
     //public Image block;
 
 
     private const int sceneOffset=1,mapNumber=6;
-    private StringBuilder displayText=new StringBuilder(40);
-    private string playerName;
-    private static Record[] records;
     //change this offset when
     //new scene inserted before MapXX -> +1
     //scene remove before MapXX -> -1
+    private StringBuilder displayText=new StringBuilder(40);
+    private string playerName;
+    private static Record[] records;
 
     public void Quit(){
         #if UNITY_EDITOR
@@ -43,18 +43,21 @@ public  class main_manager : database_manager,Imain_manager{
         #endif
     }
 
+    //button
     public void SelectMap(){
         title.gameObject.SetActive(false);
         maps.gameObject.SetActive(true);
         login.gameObject.SetActive(false);
     }
 
+    //button
     public void ReturnTitle(){
         title.gameObject.SetActive(true);
         maps.gameObject.SetActive(false);
         help.gameObject.SetActive(false);
     }
 
+    //button
     public void UnLoadAllCanvas(){
         title.gameObject.SetActive(false);
         maps.gameObject.SetActive(false);
@@ -62,6 +65,7 @@ public  class main_manager : database_manager,Imain_manager{
         login.gameObject.SetActive(false);
     }
 
+    //button
     public void LogOff(){
         title.gameObject.SetActive(false);
         maps.gameObject.SetActive(false);
@@ -69,6 +73,7 @@ public  class main_manager : database_manager,Imain_manager{
         player.Reset();
     }
 
+    //button
     public void HelpPage(){
         title.gameObject.SetActive(false);
         maps.gameObject.SetActive(false);
@@ -86,6 +91,7 @@ public  class main_manager : database_manager,Imain_manager{
         command.ExecuteNonQuery();
     }    
 
+    //button, load map according to the name of button
     public void LoadMap(){
         string n=EventSystem.current.currentSelectedGameObject.name;
         int sum=n[0]-'0';
@@ -94,7 +100,7 @@ public  class main_manager : database_manager,Imain_manager{
         SceneManager.LoadScene(sum);
     }
 
-
+    //text shown in the cyan rect of every map
     private void SetDisplayScore(GameObject obj,int scores,int lives){
         TextMeshProUGUI x=obj.transform.Find("map data").GetComponent<TextMeshProUGUI>();
 
@@ -107,7 +113,7 @@ public  class main_manager : database_manager,Imain_manager{
         displayText.Remove(0,displayText.Length);
     }
 
-
+    //helper function to change db data
     private void UpdateDB(int id,int scores,int lives){
         OpenDB();
         command=db_connect.CreateCommand();
@@ -127,7 +133,7 @@ public  class main_manager : database_manager,Imain_manager{
         }
     }
 
-
+    //called by the clear highest score button in select map page
     public void ClearData(){
         GameObject tem=EventSystem.current.currentSelectedGameObject;
         string n=tem.name;
@@ -140,7 +146,7 @@ public  class main_manager : database_manager,Imain_manager{
         SetDisplayScore(tem,0,0);
     }
 
-
+    //called by the clear highest score button in playfield
     public void ClearData(int index){
         index-=sceneOffset;
         index++;
@@ -151,7 +157,7 @@ public  class main_manager : database_manager,Imain_manager{
         SetDisplayScore(tem,0,0);
     }
 
-
+    //called by game_manager in playfield to get the highest score of that map
     public int GetHighestScores(int mapIndex){
         return records[mapIndex-sceneOffset].Scores;
     }
@@ -168,6 +174,7 @@ public  class main_manager : database_manager,Imain_manager{
         }
     }
 
+    //load data
     public void LoginSuccess(in string name){
         SelectMap();
         //block.gameObject.SetActive(true);
@@ -264,7 +271,7 @@ public  class main_manager : database_manager,Imain_manager{
                 SetDisplayScore(mapX,0,0);
             }
         }
-Stop_:
+        Stop_:
 
         //block.gameObject.SetActive(false);
         ReturnTitle();

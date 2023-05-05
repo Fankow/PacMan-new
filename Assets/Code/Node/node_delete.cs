@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-//destory all nodes spawned inside collider2D
+//destory all nodes spawned inside its' collider2D
 public class node_delete : MonoBehaviour{
     void Start(){
         if(gameObject.CompareTag("map")){

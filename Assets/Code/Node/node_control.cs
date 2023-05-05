@@ -43,6 +43,7 @@ public class node_control : MonoBehaviour{
         return x.name!=gameObject.name;
     }
 
+    //raycast a ray with lenght 1.1f to given direction at mask 0x8, if hit collider, it maybe neighbor
     private GameObject Search(Vector2 direction,Comparator cmp){
         RaycastHit2D[] all=Physics2D.RaycastAll(transform.position,direction,1.1f,0x1<<3);
         InsertionSort(all,all.Length);

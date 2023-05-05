@@ -13,20 +13,23 @@ using Mono.Data.Sqlite;
 
 using TMPro;
 
+
+//before login to the game
 public class Player_manager : database_manager,IPlayer_manager{
     [HideInInspector]public string player_name;
     public GameObject create_player,player_login,delete_player,change_password;
     public TextMeshProUGUI Text;
-    public static Player_manager instance=null;
+    public static Player_manager instance=null;//singleton, avoid two objects open db at the same time
 
     public main_manager data;
     
-
+    //open the create player page
     public void CreatePlayerButton(){
         create_player.SetActive(true);
         player_login.SetActive(false);
     }
 
+    //return to login page
     public void ReturnLoginButton(){
         create_player.SetActive(false);
         player_login.SetActive(true);
@@ -34,11 +37,13 @@ public class Player_manager : database_manager,IPlayer_manager{
         change_password.SetActive(false);
     }
 
+    //open the delete player page
     public void DeletePlayerButton(){
         player_login.SetActive(false);
         delete_player.SetActive(true);
     }
 
+    //open then change password page
     public void ChangePasswordButton(){
         player_login.SetActive(false);
         change_password.SetActive(true);
@@ -76,6 +81,7 @@ public class Player_manager : database_manager,IPlayer_manager{
         }
     }
 
+    //show warning message when preferred action fails
     private void ShowText(string a){
         Text.gameObject.SetActive(true);
         Text.text=a;
@@ -87,6 +93,7 @@ public class Player_manager : database_manager,IPlayer_manager{
         yield break;
     }
 
+    //helper function to check whether the player exists and input password is correct
     private bool CheckPlayerExists(TMP_InputField input_name,TMP_InputField password){
         if(input_name.text==""){
             ShowText("Please Enter Your Name");
@@ -123,6 +130,7 @@ public class Player_manager : database_manager,IPlayer_manager{
     }
     
 
+    //the login button on login page
     public void PlayerLoginButton(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         TMP_InputField password=transform.Find("Login").transform.Find("password").GetComponent<TMP_InputField>();
@@ -136,7 +144,7 @@ public class Player_manager : database_manager,IPlayer_manager{
         }
     }
 
-
+    //the create button on create player page
     public void CreatePlayer(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         if(input_name.text==""){
@@ -181,6 +189,7 @@ public class Player_manager : database_manager,IPlayer_manager{
     }
 
     #pragma warning disable CS0168
+    //the delete button on delete player page
     public void DeletePlayer(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         TMP_InputField password=transform.Find("Login").transform.Find("password").GetComponent<TMP_InputField>();
@@ -200,7 +209,7 @@ public class Player_manager : database_manager,IPlayer_manager{
     }
     #pragma warning restore CS0168
     
-
+    //the change password button on change password page
     public void ChangePassword(){
         TMP_InputField input_name=transform.Find("Login").transform.Find("name").GetComponent<TMP_InputField>();
         TMP_InputField password=transform.Find("Login").transform.Find("password").GetComponent<TMP_InputField>();
@@ -230,6 +239,4 @@ public class Player_manager : database_manager,IPlayer_manager{
         }
     }
 
-    
-    
 }

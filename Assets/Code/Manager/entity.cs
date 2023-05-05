@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//base class for ghost and pacman
 public abstract class entity : MonoBehaviour{
     protected GameObject curNode;
     public GameObject CurNode{get{return curNode;}}

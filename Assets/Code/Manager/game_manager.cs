@@ -51,7 +51,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
 
     void Awake(){
         gameActive=false;
-        frameRate=25;
+        frameRate=25;//reduce the workload of my gpu....
         Application.targetFrameRate=frameRate;
         sceneIndex=SceneManager.GetActiveScene().buildIndex;
 
@@ -158,7 +158,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
         }
     }
 
-
+    //action when level up
     IEnumerator LevelUp(){
         yield return new WaitForSeconds(0.2f);
         pelletAte=0;
@@ -252,7 +252,7 @@ public class game_manager:MonoBehaviour,Igame_manager{
         }
     }
 
-
+    //two helper function to change the text
     private void ChangeLives(int val){
         lives+=val;
         liveText.text=string.Format("x {0}",lives);
