@@ -14,7 +14,7 @@ This is the implementation of Pac-Man created by group G4. In this version of Pa
 
 - Messages: lives, highest scores, current scores will be shown on the left hand side. The highest scores in the map will not update unless the current scores players get is higher than it so that players can see how much they play better.
 
-- Database: sqlite is used to store the game data ,such as the highest scores and lives remaining in each map, also the players name and their password. 
+-  Database: sqlite is used to store the game data ,such as the highest scores and lives remaining in each map, also the players name and their password. 
 
 - User Management: players are required to login before they are redirected to the main screen.
 
@@ -34,7 +34,7 @@ Advance features:
 – Player can have unlimited lives
 – Player can speed up when the “space” key is pressed to escape or chase ghosts (after he eats the energizer).
 – Both ghost and player move faster but become more difficult to control precise movement.
-– More maps, each map has up to ten levels, the higher level, the more scores per pellet, but the status (speed, detect range) of ghosts also increases, the number of   energizer spawned decreases.
 – Randomized energizer spawn position
 – Random teleportation
 – Redesign ghost movement
+– More maps, each map has up to ten levels, the higher level, the more scores per pellet, but the status (speed, detect range) of ghosts also increases, the number of   energizer spawned decreases.
