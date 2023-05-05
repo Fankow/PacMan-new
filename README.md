@@ -1,6 +1,7 @@
 # PacMan-new
 
-(/photo/images/title.png)
+![Title](/photo/Title.png)
+
 a very normal pac man game :)
 
 Implemented using Unity and database created using SQLite
