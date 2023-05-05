@@ -13,7 +13,7 @@ public class generate_node : MonoBehaviour{
         int row=manager.row;
         int column=manager.column;
         float offset=1f;
-
+        // spawn the node into the map and creating each instances
         int i,j,id;
         for(i=0,id=0;i<column;i++){
             for(j=0;j<row;j++,id++){
