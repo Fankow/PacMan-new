@@ -76,7 +76,7 @@ public class pacman_control:entity,Ipacman_control{
                 }
             }
         }
-
+        // check the player input and set the pacman animation correspondingly
         if(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)){
             SetAnimation(false,false,true,game_manager.UP);
         }
@@ -125,6 +125,7 @@ public class pacman_control:entity,Ipacman_control{
         if(updated==false){
             return;
         }
+        // check if the object is node
         else if(other.gameObject.CompareTag("node_pellet")){
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
@@ -132,12 +133,14 @@ public class pacman_control:entity,Ipacman_control{
             manager.EatPellet();
             audio_.PlayOneShot(munch1);
         }
+        // check if the object is energizer
         else if(other.gameObject.CompareTag("node_energizer")){
             other.gameObject.GetComponent<SpriteRenderer>().enabled=false;
             other.gameObject.GetComponent<BoxCollider2D>().enabled=false;
             manager.EatEnergizer(other.gameObject);
             audio_.PlayOneShot(munch2);
         }
+        // check if the object is ghost
         else if(other.gameObject.CompareTag("ghost")){
             if(other.gameObject.GetComponent<ghost>().BeingEaten()){
                 manager.EatGhost();
@@ -149,6 +152,7 @@ public class pacman_control:entity,Ipacman_control{
     }
 
     private IEnumerator PlayDeadAnimation(){
+        //Set pacman to dead animation and play the dead audio
         manager.gameActive=false;
         anime.SetTrigger("dead");
         yield return deadAnimationTime;
