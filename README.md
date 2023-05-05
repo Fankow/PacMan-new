@@ -1,8 +1,11 @@
 # PacMan-new
 a very normal pac man game :)
-Implemented using unity and database created using SQLite
+
+Implemented using Unity and database created using SQLite
+
 Made by CSCI 3100 group G4
-This is the implementation of Pac-Man created by group G4. In this version of Pac-Man, we have implemented the following system features:
+
+In this version of Pac-Man, we have implemented the following system features:
 
 - Menu items: the menu will be called after “esc” key is pressed or pause button on the top left clicked, and the player can either exit or restart the current map at any time, and the current scores  (also remaining lives) will be stored if current score has achieved the highest scores of this map. To clear the highest score, the player has to return to the “select map” scene to clear the highest score they have achieved in a certain map.
 
